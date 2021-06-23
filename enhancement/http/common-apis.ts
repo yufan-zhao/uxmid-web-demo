@@ -1,0 +1,1 @@
+import { ArgumentException } from "uxmid-core";

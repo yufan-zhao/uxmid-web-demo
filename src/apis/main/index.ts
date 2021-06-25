@@ -1,3 +1,2 @@
-export { default as MainApplicationUrls } from "./application";
-export { default as MainBusinessUrls } from "./business";
 export { default as MainApi } from "./main-api";
+export { default as MainUrls } from "./application";

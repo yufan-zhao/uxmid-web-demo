@@ -1,6 +1,6 @@
 import BusinessUrl from "./business";
 
-export default abstract class ApplicationUrl extends BusinessUrl
+export default class ApplicationUrl extends BusinessUrl
 {
-    login: "/oauth/token"
-};
+    public login: string = "/oauth/token";
+}

@@ -22,4 +22,16 @@ export default interface IApplicationSettings
      * @returns {string} 字符串
      */
     readonly version: string;
+    /**
+     * 项目主接口地址
+     * @readonly
+     * @returns {string} 字符串
+     */
+    readonly mainOriginUrl: string;
+    /**
+     * 项目主接口前缀
+     * @readonly
+     * @returns {string} 字符串
+     */
+    readonly mainPrefix: string;
 }

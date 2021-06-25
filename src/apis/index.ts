@@ -1,8 +1,9 @@
 import { default as AbstractApis } from "./apis";
-import { MainApi } from "./main";
+import { MainApi, MainUrls } from "./main";
 
 export
 {
     AbstractApis,
-    MainApi
+    MainApi,
+    MainUrls
 };

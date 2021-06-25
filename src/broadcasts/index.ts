@@ -1,1 +1,1 @@
-export { default as BroadcastChannels} from "./channels";
+export { default as BroadcastChannels } from "./channels";

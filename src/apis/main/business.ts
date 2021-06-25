@@ -1,4 +1,6 @@
-export default abstract class BusinessUrl
+import { AbstractHttpUrl } from "src/models";
+
+export default class BusinessUrl implements AbstractHttpUrl
 {
-    deviceManagePage: "/rjEquipmentManage/pageDetails"
-};
+    public deviceManagePage: string = "/rjEquipmentManage/pageDetails";
+}

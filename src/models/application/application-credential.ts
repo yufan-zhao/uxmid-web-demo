@@ -6,5 +6,5 @@ import { ICredential } from "uxmid-core";
  */
 export default interface IApplicationCredential extends ICredential
 {
-
+    token: string;
 }

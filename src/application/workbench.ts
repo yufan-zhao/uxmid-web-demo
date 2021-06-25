@@ -1,7 +1,10 @@
-import { WorkbenchBase, ApplicationContextBase, Logger, ConsoleLogHandler, IServiceProvider, ServiceProviderFactory, EventProviderFactory } from "uxmid-core";
+import { WorkbenchBase, ApplicationContextBase, Logger, ConsoleLogHandler, IServiceProvider, ServiceProviderFactory, Map } from "uxmid-core";
 
+import { IHttpApi, AbstractHttpUrl, IApplicationCredential } from "src/models";
+import { APPLICATION_PLATFORM } from "src/enums";
 import ApplicationContext from "./context";
 import Workspace from "./workspace";
+import { MainApi, MainUrls } from "src/apis";
 
 /**
  * 提供工作台的基本封装。
@@ -54,6 +57,10 @@ export default class Workbench extends WorkbenchBase
         // 注册日志处理程序
         Logger.handlers.add(new ConsoleLogHandler());
 
+        // 初始化请求模块
+        await this.initializeHttpApis(context);
+        console.log("Test", context.httpApiMap);
+
         // 初始化工作空间
         this._workspace = this.createWorkspace(context);
     }
@@ -66,5 +73,29 @@ export default class Workbench extends WorkbenchBase
     protected createWorkspace(context: ApplicationContext): Workspace
     {
         return new Workspace(this, context);
+    }
+
+    /**
+     * 初始化请求模块。
+     * @param context ApplicationContext
+     */
+    private async initializeHttpApis(context: ApplicationContext): Promise<void>
+    {
+        try
+        {
+            context.httpApiMap = new Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>();
+
+            // 添加主接口子模块
+            let platform: APPLICATION_PLATFORM = APPLICATION_PLATFORM.MAIN,
+                credential: IApplicationCredential = null,
+                apis: MainUrls = new MainUrls(),
+                origin: string = context.settings.mainOriginUrl,
+                prefix: string = context.settings.mainPrefix;
+            context.httpApiMap.set(platform, new MainApi(platform, credential, apis, origin, prefix));
+        }
+        catch(err)
+        {
+            Logger.error("workbench", "初始化系统请求模块异常", err);
+        }
     }
 }

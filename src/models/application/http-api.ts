@@ -1,10 +1,10 @@
-import ApplicationCredential from "./application-credential";
+import IApplicationCredential from "./application-credential";
 import { APPLICATION_PLATFORM } from "src/enums";
 
 /**
  * 表示一个平台的Api
  */
-export default interface IHttpApi
+export default interface IHttpApi<T>
 {
     /**
      * Api所属平台
@@ -14,15 +14,15 @@ export default interface IHttpApi
 
     /**
      * 请求所需的凭证。
-     * @returns {ApplicationCredential} 安全凭证
+     * @returns {IApplicationCredential} 安全凭证
      */
-    credential: ApplicationCredential;
+    credential: IApplicationCredential;
 
     /**
      * 请求接口路径对象。
-     * @returns {{[name: string]: string}} 路径对象
+     * @returns {T} 路径对象
      */
-    apis: {[name: string]: string};
+    apis: T;
 
     /**
      * 接口前半部分。

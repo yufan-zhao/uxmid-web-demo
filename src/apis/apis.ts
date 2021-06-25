@@ -4,17 +4,17 @@ import { APPLICATION_PLATFORM } from "src/enums";
 import { IApplicationCredential, IHttpApi, IHttpRequest, IHttpResponse } from "src/models";
 import HttpClient from "src/common/http/http-client";
 
-export default abstract class Apis implements IHttpApi
+export default abstract class Apis<T> implements IHttpApi<T>
 {
     public platform: APPLICATION_PLATFORM;
     public credential: IApplicationCredential;
-    public apis: { [name: string]: string; };
+    public apis: T;
     public origin: string;
     public prefix: string;
 
     public constructor(
         platform: APPLICATION_PLATFORM, credential: IApplicationCredential,
-        apis: { [name: string]: string; }, origin: string, prefix: string)
+        apis: T, origin: string, prefix: string)
     {
         this.platform = platform;
         this.credential = credential;

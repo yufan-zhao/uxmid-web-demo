@@ -130,6 +130,85 @@ export default class MainLayout extends Component
 }
 </script>
 
-<style lang="less">
-    @import "~styles/index.less";
+<style lang="less" scoped>
+    // @import "~styles/index.less";
+.layout
+{
+    &,
+    &-context
+    {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    &-context
+    {
+        display: flex;
+
+
+        &.dark
+        {
+            
+            .layout-header
+            {
+                background-color: #090D1B;
+                border-bottom-color: #090D1B;
+                color: @white-color;
+            }
+
+            .layout-menu .trigger,
+            // @{deep}.layout-header-user .username,
+            .layout-header-user .username,
+            .layout-header-textlogo
+            {
+                color: @white-color;
+            }
+        }
+    }
+
+    .layout-context-warp
+    {
+        flex: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    &-generic
+    {
+        overflow: hidden;
+        position: relative;
+    }
+
+    &-generic-content
+    {   
+        position: relative;
+        flex: auto;
+        display: flex;
+        flex-direction: column;
+        // overflow-y: auto;
+        background:#ffffff; // ;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active 
+    {
+        transition: opacity .3s;
+    }
+
+    .fade-enter,
+    .fade-leave-active 
+    {
+        opacity: 0;
+    }
+    
+    > .iconfont
+    {
+        &:hover
+        {
+            color: #4D76FF;
+        }
+        cursor: pointer;
+        font-size: 26px;
+    }
+}
 </style>

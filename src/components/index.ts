@@ -7,11 +7,12 @@ const globalComponents =
     ...LayoutComponents
 };
 
-export function install(Vue: any, opts: any = {})
+export function install(vueClass: any, opts: any = {})
 {
+    const _Vue = vueClass;
     Object.keys(globalComponents).forEach(key =>
     {
-        Vue.component(key, globalComponents[key]);
+        _Vue.component(key, globalComponents[key]);
     });
 }
 

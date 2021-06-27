@@ -21,3 +21,13 @@ export default class GenericLayout extends Component
 {
 }
 </script>
+
+<style lang="less" scoped>
+.layout-generic
+{
+    .layout-generic-content
+    {
+        background-color: #f8f8fa;
+    }
+}
+</style>

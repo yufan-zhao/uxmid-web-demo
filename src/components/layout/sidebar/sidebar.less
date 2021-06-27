@@ -57,7 +57,15 @@
             transition: opacity .5s;
         }
     }
-    .layout-sidebar-menu
+
+    @{deep}.ivu-layout-sider-children
+    {
+        height: 100%;
+        padding-top: .1px;
+        margin-top: -.1px;
+    }
+
+    @{deep}.layout-sidebar-menu
     {
         color: #fff;
         &.ivu-menu-light
@@ -76,7 +84,8 @@
             }
         }
     }
-    .ivu-menu-vertical.ivu-menu-light
+
+    @{deep}.ivu-menu-vertical.ivu-menu-light
     {
         &::after
         {

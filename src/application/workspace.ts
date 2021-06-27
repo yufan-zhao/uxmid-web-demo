@@ -2,6 +2,12 @@ import { IWorkbench } from "uxmid-core";
 import components, { View, Message } from "uxmid-web";
 import Vue, { CreateElement } from "vue";
 import Router from "vue-router";
+import dayjs from "dayjs";
+import "dayjs/locale/zh-cn";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+import "iview/dist/styles/iview.css";
+import iView from "iview";
 
 import ApplicationContext from "./context";
 import { applicationMenu } from "src/routes";
@@ -99,7 +105,11 @@ export default class Workspace extends View
      */
     public static initializeComponent(context: ApplicationContext): void
     {
+        Vue.use(iView);
         Vue.use(components);
         Vue.use(globalComponents);
+
+        dayjs.locale("zh-cn");
+        dayjs.extend(relativeTime);
     }
 }

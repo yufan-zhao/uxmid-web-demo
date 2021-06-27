@@ -124,8 +124,8 @@ module.exports =
             preProcessor: "less",
             patterns:
             [
-                path.resolve(__dirname, "src/styles/base/variables.less"),
-                path.resolve(__dirname, "src/styles/base/mixins.less")
+                path.resolve(__dirname, "src/styles/application/variables.less")
+                // path.resolve(__dirname, "src/styles/base/mixins.less")
             ]
         }
     },

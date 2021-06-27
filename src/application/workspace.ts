@@ -1,8 +1,11 @@
 import { IWorkbench } from "uxmid-core";
 import components, { View, Message } from "uxmid-web";
 import Vue, { CreateElement } from "vue";
+import Router from "vue-router";
 
 import ApplicationContext from "./context";
+import { applicationMenu } from "src/routes";
+import globalComponents from "src/components";
 
 /**
  * 工作空间实现类
@@ -27,10 +30,10 @@ export default class Workspace extends View
      * @property
      * @returns Message
      */
-    public get message(): Message
-    {
-        return this.$message;
-    }
+    // public get message(): Message
+    // {
+    //     return this.$message;
+    // }
 
     /**
      * 初始化工作空间的新实例。
@@ -51,10 +54,16 @@ export default class Workspace extends View
             console.error(msg, vm, trace);
         };
 
+        // 初始化路由
+        Workspace.initializeRouter(context);
+
+        // 初始化系统及自定义组件
+        Workspace.initializeComponent(context);
+
         let options =
         {
             el: "#workspace",
-            router: ApplicationContext.current.router,
+            router: context.router,
             // store: ApplicationContext.current.store,
             render(h: CreateElement)
             {
@@ -64,5 +73,32 @@ export default class Workspace extends View
 
         super(options);
         this._workbench = workbench;
+    }
+
+    /**
+     * 初始化vue路由。
+     * @param context {ApplicationContext} context 应用程序上下文实例。
+     * @returns {void} void
+     */
+    public static initializeRouter(context: ApplicationContext): void
+    {
+        // 注册路由组件
+        Vue.use(Router);
+        
+        // 初始化路由程序
+        let router = new Router({mode: "history", routes: applicationMenu});
+
+        context.router = router;
+    }
+
+    /**
+     * 初始化全局组件。
+     * @param  {ApplicationContext} context 应用程序上下文实例。
+     * @returns {void} void
+     */
+    public static initializeComponent(context: ApplicationContext): void
+    {
+        Vue.use(components);
+        Vue.use(globalComponents);
     }
 }

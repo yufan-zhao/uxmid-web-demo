@@ -59,7 +59,6 @@ export default class Workbench extends WorkbenchBase
 
         // 初始化请求模块
         await this.initializeHttpApis(context);
-        console.log("Test", context.httpApiMap);
 
         // 初始化工作空间
         this._workspace = this.createWorkspace(context);

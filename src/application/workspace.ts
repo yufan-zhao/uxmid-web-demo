@@ -6,6 +6,7 @@ import Router from "vue-router";
 import ApplicationContext from "./context";
 import { applicationMenu } from "src/routes";
 import globalComponents from "src/components";
+import "src/styles/index.less";
 
 /**
  * 工作空间实现类

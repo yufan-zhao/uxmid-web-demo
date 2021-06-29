@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, config } from "uxmid-dom";
+import { component, View, config } from "uxmid-dashboard-web";
 @component
 export default class PageContent extends View
 {

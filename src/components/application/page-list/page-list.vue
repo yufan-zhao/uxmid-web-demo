@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, config, watch } from "uxmid-dom";
+import { component, View, config, watch } from "uxmid-dashboard-web";
 
 @component
 export default class PageList extends View

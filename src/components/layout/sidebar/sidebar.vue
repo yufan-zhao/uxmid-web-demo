@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component, watch } from "uxmid-dom";
+import { component, Component, watch } from "uxmid-dashboard-web";
 import { Application } from "uxmid-core";
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "models";

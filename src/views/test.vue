@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch } from "uxmid-dom";
+import { component, View, watch } from "uxmid-dashboard-web";
 
 @component
 export default class TestView extends View

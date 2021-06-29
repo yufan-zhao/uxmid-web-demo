@@ -16,7 +16,7 @@
     </l-main>
 </template>
 <script lang="ts">
-import { component, View, watch } from "uxmid-web";
+import { component, View, watch } from "uxmid-dom";
 import { Broadcast, BroadcastManager, Map } from "uxmid-core";
 import CommonView from "./common-view";
 import { Route, RouteConfig } from "vue-router";

@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-web";
+import { component, Component } from "uxmid-dom";
 import { Broadcast, BroadcastManager, Application, Map } from "uxmid-core";
 import Header from "components/layout/header";
 import Sidebar from "components/layout/sidebar";

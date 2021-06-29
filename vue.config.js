@@ -79,7 +79,7 @@ module.exports =
         // 设置路径别名。
         config.resolve.alias
             .set("vue$", "vue/dist/vue.esm.js")
-            .set("enhancement", resolve("enhancement"))
+            .set("uxmid-dom", resolve("uxmid-dom"))
             .set("src", resolve("src"))
             .set("apis", resolve("src/apis"),           )
             .set("application", resolve("src/application"))

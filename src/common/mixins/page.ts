@@ -1,5 +1,5 @@
 import { Type, Logger } from "uxmid-core";
-import { component, Component } from "uxmid-web";
+import { component, Component } from "uxmid-dom";
 import { IPaginSearchModel, IPagingResult, IPaginFilterModel, IPaginFilter } from "models";
 import { ExtendUtils } from "common/utils";
 

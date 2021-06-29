@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-web";
+import { component, Component } from "uxmid-dom";
 
 /**
  * 表示一个包含头部和侧边条的布局母版。

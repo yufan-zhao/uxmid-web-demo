@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-web";
+import { component, Component } from "uxmid-dom";
 
 @component
 export default class IViewLayout extends Component

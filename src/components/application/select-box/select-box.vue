@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component, config } from "uxmid-web";
+import { component, Component, config } from "uxmid-dom";
 
 /**
  * 表示一个页面头部组件。

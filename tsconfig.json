@@ -15,7 +15,7 @@
         "baseUrl": ".",
         "types": ["webpack-env"],
         "paths": {
-            "enhancement/*": ["./enhancement/*"],
+            "uxmid-dom/*": ["./uxmid-dom/*"],
             "src/*": ["./src/*"],
             "apis": ["./src/apis/"],
             "apis/*": ["./src/apis/*"],
@@ -45,7 +45,7 @@
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
     "include": [
-        "enhancement/**/*.ts",
+        "uxmid-dom/**/*.ts",
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.vue",

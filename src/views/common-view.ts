@@ -1,4 +1,4 @@
-import { View } from "uxmid-web";
+import { View } from "uxmid-dom";
 import { Application, LocalStorage, EnumUtils } from "uxmid-core";
 import { ApplicationContext } from "../application";
 

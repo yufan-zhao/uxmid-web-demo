@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, config } from "uxmid-web";
+import { component, View, config } from "uxmid-dom";
 
 @component
 export default class TableStyleSwitch extends View

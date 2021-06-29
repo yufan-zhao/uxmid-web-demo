@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch } from "uxmid-web";
+import { component, View, watch } from "uxmid-dom";
 
 @component
 export default class TestView extends View

@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { component, config, Component } from "uxmid-web";
+import { component, config, Component } from "uxmid-dom";
 import { ExtendUtils } from "src/common/utils";
 
 /**

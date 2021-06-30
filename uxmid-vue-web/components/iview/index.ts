@@ -1,6 +1,7 @@
 import { Type } from "uxmid-core";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
+import "../../styles/iview-dashboard/index.less";
 
 const iview: any = ViewUI;
 const conflicts = ["Button", "Circle", "Col", "Content", "Form", "Footer", "Header", "Input", "Menu", "Option", "Progress", "Select", "Switch", "Table", "Time"];

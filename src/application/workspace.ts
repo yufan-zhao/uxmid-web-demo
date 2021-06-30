@@ -1,5 +1,5 @@
 import { IWorkbench } from "uxmid-core";
-import components, { View, Message } from "uxmid-vue-web";
+import components, { View } from "uxmid-vue-web";
 import Vue, { CreateElement } from "vue";
 import Router from "vue-router";
 import dayjs from "dayjs";

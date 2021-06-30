@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { component, View, config } from "uxmid-dashboard-web";
+import { component, View, config } from "uxmid-vue-web";
 import { Page } from "src/common/mixins";
 
 @component({

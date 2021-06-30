@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-dashboard-web";
+import { component, Component } from "uxmid-vue-web";
 
 @component
 export default class IViewLayout extends Component

@@ -1,4 +1,4 @@
-import { View } from "uxmid-dashboard-web";
+import { View } from "uxmid-vue-web";
 import { Application, LocalStorage, EnumUtils } from "uxmid-core";
 import { ApplicationContext } from "../application";
 

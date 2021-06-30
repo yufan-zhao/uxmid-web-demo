@@ -1,5 +1,5 @@
 import { Type, Logger } from "uxmid-core";
-import { component, Component } from "uxmid-dashboard-web";
+import { component, Component } from "uxmid-vue-web";
 import { IPaginSearchModel, IPagingResult, IPaginFilterModel, IPaginFilter } from "models";
 import { ExtendUtils } from "common/utils";
 

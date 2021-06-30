@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Application } from "uxmid-core";
-import { component, View, config, Component, watch } from "uxmid-dashboard-web";
+import { component, View, config, Component, watch } from "uxmid-vue-web";
 import CommonView from "src/views/common-view";
 import { ApplicationContext } from "src/application";
 import { IApplicationCredential } from "src/models";

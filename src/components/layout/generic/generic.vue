@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-dashboard-web";
+import { component, Component } from "uxmid-vue-web";
 
 /**
  * 表示一个包含头部和侧边条的布局母版。

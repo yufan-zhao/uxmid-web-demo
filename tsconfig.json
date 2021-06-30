@@ -15,7 +15,7 @@
         "baseUrl": ".",
         "types": ["webpack-env"],
         "paths": {
-            "uxmid-dashboard-web/*": ["./uxmid-dashboard-web/*"],
+            "uxmid-vue-web/*": ["./uxmid-vue-web/*"],
             "src/*": ["./src/*"],
             "apis": ["./src/apis/"],
             "apis/*": ["./src/apis/*"],
@@ -45,7 +45,7 @@
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
     "include": [
-        "uxmid-dashboard-web/**/*.ts",
+        "uxmid-vue-web/**/*.ts",
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.vue",

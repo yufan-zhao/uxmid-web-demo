@@ -1,7 +1,7 @@
 import { IWorkbench, ApplicationContextBase, Exception, IEventProvider, Map } from "uxmid-core";
 import Router, { Route } from "vue-router";
 
-import { IApplicationSettings, IHttpApi, AbstractHttpUrl } from "src/models";
+import { IApplicationSettings, IApplicationCredential, IHttpApi, AbstractHttpUrl } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import Workbench from "./workbench";
 
@@ -14,6 +14,7 @@ export default class ApplicationContext extends ApplicationContextBase
     private _settings: IApplicationSettings;
     private _router: Router;
     private _httpApiMap: Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>;
+    private _credentialMap: Map<APPLICATION_PLATFORM, IApplicationCredential>;
 
     /**
      * 单例化上下文示例
@@ -73,6 +74,24 @@ export default class ApplicationContext extends ApplicationContextBase
     public set httpApiMap(value: Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>)
     {
         this._httpApiMap = value;
+    }
+
+    /**
+     * 获取当前应用的凭证Map
+     * @public
+     */
+    public get credentialMap(): Map<APPLICATION_PLATFORM, IApplicationCredential>
+    {
+        return this._credentialMap;
+    }
+
+    /**
+     * 设置当前应用的凭证Map
+     * @public
+     */
+    public set credentialMap(value: Map<APPLICATION_PLATFORM, IApplicationCredential>)
+    {
+        this._credentialMap = value;
     }
 
     /**

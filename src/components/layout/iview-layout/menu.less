@@ -1,0 +1,51 @@
+.menu-instance
+{
+    .sub-title
+    {
+        display: flex;
+        align-items: center;
+        height: 68px;
+        padding-left: 28px;
+        background-color: #2D52F2;
+
+        .label
+        {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+    }
+    .menu-instance-item
+    {
+        display: flex;
+        align-items: center;
+        height: 54px;
+        padding: 0;
+        color: #7E8791;
+
+        i
+        {
+            margin-left: 31px;
+            font-size: 18px;
+        }
+    }
+    .menu-instance-item::before
+    {
+        content: " ";
+        width: 3px;
+        height: 100%;
+    }
+    .menu-instance-item.ivu-menu-item-selected
+    {
+        color: #fff;
+
+        i
+        {
+            color: #2D52F2;
+        }
+    }
+    .menu-instance-item.ivu-menu-item-selected::before
+    {
+        background-color: #2D52F2;
+    }
+}

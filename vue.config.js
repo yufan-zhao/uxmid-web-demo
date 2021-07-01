@@ -8,7 +8,7 @@ const resolve = function(dir)
 };
 
 // const isProd = process.env.NODE_ENV === "production";
-const isProd = false;
+const isProd = false; // TODO 先凑活处理 禁止oss上传
 
 module.exports =
 {
@@ -146,8 +146,7 @@ module.exports =
         {
             "/appraiseApi":
             {
-                // target: "http://47.107.50.215:9589"
-                target: "https://rj.appraise.wayto.com.cn"
+                target: "http://47.107.50.215:9013"
             }
         }
     }

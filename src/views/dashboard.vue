@@ -1,5 +1,7 @@
 <template>
-    <l-iview-layout>
+    <l-iview-layout
+        
+    >
         
     </l-iview-layout>
 </template>
@@ -7,8 +9,12 @@
 <script lang="ts">
 import { component, View, watch } from "uxmid-vue-web";
 
+/**
+ * 后台管理系统iview dashboard基础布局组件
+ * @component
+ */
 @component
-export default class TestView extends View
+export default class DashboardView extends View
 {
 
 }

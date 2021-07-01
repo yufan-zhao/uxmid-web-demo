@@ -26,19 +26,38 @@
             <i-layout>
                 <i-header class="layout-header-bar">
                     <div class="header-bar-content">
-                        <div class="switch-btn">
-                            <svg t="1625109564103" class="icon-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1817" width="200" height="200">
-                                <path fill="#70737B" d="M64.863 89.086v84.283h898.993V89.086H64.863z m322.252 338.777h576.741v-84.278H387.115v84.278z m0 252.844h576.741v-84.283H387.115v84.283zM64.863 935.202h898.993v-84.283H64.863v84.283z m241.871-592.225L64.429 512.12l242.305 169.143V342.977z" p-id="1818"></path>
-                            </svg>
+                        <div class="left">
+                            <div class="switch-btn">
+                                <svg
+                                    t="1625109564103"
+                                    class="icon-svg"
+                                    viewBox="0 0 1024 1024"
+                                    version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    p-id="1817"
+                                    width="200"
+                                    height="200"
+                                    @click="isCollapsed = !isCollapsed"
+                                >
+                                    <path fill="#70737B" d="M64.863 89.086v84.283h898.993V89.086H64.863z m322.252 338.777h576.741v-84.278H387.115v84.278z m0 252.844h576.741v-84.283H387.115v84.283zM64.863 935.202h898.993v-84.283H64.863v84.283z m241.871-592.225L64.429 512.12l242.305 169.143V342.977z" p-id="1818"></path>
+                                </svg>
+                            </div>
+                            <span class="split-line"></span>
+                            <span class="header-title">{{headerTitle}}</span>
                         </div>
-                        <span class="split-line"></span>
-                        <span class="header-title">{{headerTitle}}</span>
+                        <div class="right">
+                            <span class="avatar"></span>
+                        </div>
                     </div>
                 </i-header>
                 <i-content :style="{margin: '20px', background: '#fff', minHeight: '220px'}">
                     <div style="height: 400px;width: 800px;">
                         Content
                         <i-button type="primary">测试按钮</i-button>
+                        <i-input placeholder="测试input"></i-input>
+                        <i-select placeholder="请选择">
+                            <i-option>测试select</i-option>
+                        </i-select>
                     </div>
                 </i-content>
             </i-layout>
@@ -107,6 +126,9 @@ export default class IViewLayout extends Component
 </script>
 
 <style lang="less" scoped>
+@import "./header.less";
+@import "./menu.less";
+
 .iview-dashboard-layout
 {
     height: 100vh;
@@ -114,99 +136,6 @@ export default class IViewLayout extends Component
     @{deep}>.ivu-layout
     {
         height: 100%;
-    }
-
-    // 顶部header部分样式
-    .layout-header-bar
-    {
-        .header-bar-content
-        {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-
-            .switch-btn
-            {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                width: 70px;
-
-                .icon-svg
-                {
-                    height: 16px;
-                    width: 16px;
-                    cursor: pointer;
-                }
-            }
-            .split-line
-            {
-                width: 1px;
-                height: 16px;
-                background-color: #E0E0E0;
-            }
-            .header-title
-            {
-                margin-left: 20px;
-                font-size: 16px;
-                font-weight: bold;
-                color: #182334;
-            }
-        }
-    }
-
-    .menu-instance
-    {
-        .sub-title
-        {
-            display: flex;
-            align-items: center;
-            height: 68px;
-            padding-left: 28px;
-            background-color: #2D52F2;
-
-            .label
-            {
-                font-size: 18px;
-                font-weight: bold;
-                color: #fff;
-            }
-        }
-        .menu-instance-item
-        {
-            display: flex;
-            align-items: center;
-            height: 54px;
-            padding: 0;
-            color: #7E8791;
-
-            i
-            {
-                margin-left: 31px;
-                font-size: 18px;
-            }
-        }
-        .menu-instance-item::before
-        {
-            content: " ";
-            width: 3px;
-            height: 100%;
-        }
-        .menu-instance-item.ivu-menu-item-selected
-        {
-            color: #fff;
-
-            i
-            {
-                color: #2D52F2;
-            }
-        }
-        .menu-instance-item.ivu-menu-item-selected::before
-        {
-            background-color: #2D52F2;
-        }
     }
 }
 </style>

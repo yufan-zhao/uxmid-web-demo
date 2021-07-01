@@ -86,11 +86,10 @@ export default class Workbench extends WorkbenchBase
 
             // 添加主接口子模块
             let platform: APPLICATION_PLATFORM = APPLICATION_PLATFORM.MAIN,
-                credential: IApplicationCredential = null,
                 apis: MainUrls = new MainUrls(),
                 origin: string = context.settings.mainOriginUrl,
                 prefix: string = context.settings.mainPrefix;
-            context.httpApiMap.set(platform, new MainApi(platform, credential, apis, origin, prefix));
+            context.httpApiMap.set(platform, new MainApi(platform, apis, origin, prefix));
         }
         catch(err)
         {

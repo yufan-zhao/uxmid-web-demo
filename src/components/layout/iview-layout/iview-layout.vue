@@ -50,14 +50,20 @@
                         </div>
                     </div>
                 </i-header>
-                <i-content :style="{margin: '20px', background: '#fff', minHeight: '220px'}">
-                    <div style="height: 400px;width: 800px;">
-                        Content
-                        <i-button type="primary">测试按钮</i-button>
-                        <i-input placeholder="测试input"></i-input>
-                        <i-select placeholder="请选择">
-                            <i-option>测试select</i-option>
-                        </i-select>
+                <i-content class="main-content">
+                    <div class="tab-layout">
+                        <ul class="tab-list">
+                            <li 
+                                class="tab-item"
+                                v-for="(item, i) in tabList"
+                                :key="i"
+                                :class="{active: i === currentTab}"
+                                @click="currentTab = i"
+                            >{{item}}</li>
+                        </ul>
+                    </div>
+                    <div class="content-layout">
+
                     </div>
                 </i-content>
             </i-layout>
@@ -66,17 +72,36 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-vue-web";
+import { component, Component, config, watch } from "uxmid-vue-web";
 import { ApplicationContext } from "src/application";
 
 @component
 export default class IViewLayout extends Component
 {
     /**
+     * 传入的二级菜单列表
+     * @config
+     */
+    @config({required: false, type: Array, default: () => []})
+    protected tabs: Array<any>;
+
+    /**
      * 是否收缩菜单
      * @property
      */
     protected isCollapsed: boolean = false;
+
+    /**
+     * 当前的tab索引
+     * @property
+     */
+    protected currentTab: number = -1;
+
+    /**
+     * tab列表
+     * @property
+     */
+    protected tabList: Array<any> = [];
 
     /**
      * 菜单动态class
@@ -122,12 +147,23 @@ export default class IViewLayout extends Component
     {
         return this.applicationContext.settings.abbreviation || "请在config.js中配置abbreviation";
     }
+
+    /**
+     * tabs监听
+     * @watch
+     */
+    @watch("tabs", {immediate: true})
+    protected tabsWatcher(val)
+    {
+        this.tabList = val;
+    }
 }
 </script>
 
 <style lang="less" scoped>
 @import "./header.less";
 @import "./menu.less";
+@import "./tab-layout.less";
 
 .iview-dashboard-layout
 {
@@ -136,6 +172,21 @@ export default class IViewLayout extends Component
     @{deep}>.ivu-layout
     {
         height: 100%;
+    }
+
+    .main-content
+    {
+        display: flex;
+        flex-direction: column;
+
+        .content-layout
+        {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #fff;
+            border-top: 1px solid #DCE0E7;
+        }
     }
 }
 </style>

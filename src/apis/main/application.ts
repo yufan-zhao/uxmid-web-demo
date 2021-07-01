@@ -3,7 +3,7 @@ import BusinessUrl from "./business";
 export default class ApplicationUrl extends BusinessUrl
 {
     // 认证接口
-    public login = "/oauth/token";
+    public login            = "/oauth/token";
 
     // 权限接口
     public permissionList   = "/permission/list";

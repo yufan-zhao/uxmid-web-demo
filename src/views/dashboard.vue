@@ -1,6 +1,6 @@
 <template>
     <l-iview-layout
-        
+        :tabs="['标签A', '标签B']"
     >
         
     </l-iview-layout>

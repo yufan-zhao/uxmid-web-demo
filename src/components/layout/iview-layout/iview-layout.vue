@@ -2,21 +2,18 @@
     <div class="iview-dashboard-layout">
         <i-layout>
             <i-sider breakpoint="md" collapsible :collapsed-width="78" :width="192" v-model="isCollapsed">
-                <i-menu active-name="1-2" theme="dark" width="auto" class="menu-instance" :class="menuitemClasses">
+                <i-menu :active-name="currentMenuLabel" theme="dark" width="auto" class="menu-instance" :class="menuitemClasses" @on-select="onMenuSelect">
                     <div class="sub-title">
                         <span class="label">{{subTitle}}</span>
                     </div>
-                    <i-menu-item class="menu-instance-item" name="1-1">
+                    <i-menu-item
+                        class="menu-instance-item"
+                        v-for="(item, i) in menuList"
+                        :key="i"
+                        :name="item.label"
+                    >
                         <i-icon type="ios-navigate"></i-icon>
-                        <span>首页</span>
-                    </i-menu-item>
-                    <i-menu-item class="menu-instance-item" name="1-2">
-                        <i-icon type="ios-search"></i-icon>
-                        <span>业务模块</span>
-                    </i-menu-item>
-                    <i-menu-item class="menu-instance-item" name="1-3">
-                        <i-icon type="ios-settings"></i-icon>
-                        <span>系统设置</span>
+                        <span>{{item.label}}</span>
                     </i-menu-item>
                 </i-menu>
                 
@@ -58,12 +55,12 @@
                                 v-for="(item, i) in tabList"
                                 :key="i"
                                 :class="{active: i === currentTab}"
-                                @click="currentTab = i"
-                            >{{item}}</li>
+                                @click="onTabClick(item, i)"
+                            >{{item.label}}</li>
                         </ul>
                     </div>
                     <div class="content-layout">
-
+                        <slot></slot>
                     </div>
                 </i-content>
             </i-layout>
@@ -74,16 +71,24 @@
 <script lang="ts">
 import { component, Component, config, watch } from "uxmid-vue-web";
 import { ApplicationContext } from "src/application";
+import { IApplicationMenu } from "src/models";
 
 @component
 export default class IViewLayout extends Component
 {
     /**
+     * 传入的一级菜单列表
+     * @config
+     */
+    @config({required: false, type: Array, default: () => []})
+    protected menus: Array<IApplicationMenu>;
+
+    /**
      * 传入的二级菜单列表
      * @config
      */
     @config({required: false, type: Array, default: () => []})
-    protected tabs: Array<any>;
+    protected tabs: Array<IApplicationMenu>;
 
     /**
      * 是否收缩菜单
@@ -92,16 +97,34 @@ export default class IViewLayout extends Component
     protected isCollapsed: boolean = false;
 
     /**
+     * 当前的menu索引
+     * @property
+     */
+    protected currentMenu: number = -1;
+
+    /**
+     * 当前menu的名字
+     * @property
+     */
+    protected currentMenuLabel: string = "";
+
+    /**
      * 当前的tab索引
      * @property
      */
     protected currentTab: number = -1;
 
     /**
+     * menu列表
+     * @property
+     */
+    protected menuList: Array<IApplicationMenu> = [];
+
+    /**
      * tab列表
      * @property
      */
-    protected tabList: Array<any> = [];
+    protected tabList: Array<IApplicationMenu> = [];
 
     /**
      * 菜单动态class
@@ -149,13 +172,99 @@ export default class IViewLayout extends Component
     }
 
     /**
+     * menus监听
+     * @watch
+     */
+    @watch("menus", {immediate: true})
+    protected menusWatcher(val: Array<IApplicationMenu>)
+    {
+        if (val.length === 0)
+        {
+            this.menuList = [];
+            return;
+        }
+
+        if (this.menuList.length === 0)
+        {
+            this.onMenuClick(val[0], 0);
+            this.menuList = val;
+        }
+    }
+
+    /**
      * tabs监听
      * @watch
      */
     @watch("tabs", {immediate: true})
-    protected tabsWatcher(val)
+    protected tabsWatcher(val: Array<IApplicationMenu>)
     {
-        this.tabList = val;
+        if (val.length === 0)
+        {
+            this.tabList = [];
+            return;
+        }
+
+        if (this.tabList.length === 0)
+        {
+            this.onTabClick(val[0], 0);
+            this.tabList = val;
+        }
+        else
+        {
+            // TODO 对于临时新增的tab菜单，有可能要提前展示，并且要有关闭按钮
+        }
+    }
+
+    /**
+     * 菜单选择事件
+     * @member
+     */
+    protected onMenuSelect(label: string)
+    {
+        // 根据菜单label找到指定的IApplicationMenu菜单
+        let i = -1;
+        const target = this.menuList.find((item, index) =>
+        {
+            if (item.label === label)
+            {
+                i = index;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
+        if (i === this.currentMenu)
+        {
+            return;
+        }
+        this.onMenuClick(target, i);
+    }
+
+    /**
+     * 菜单点击事件
+     * @member
+     */
+    protected onMenuClick(item: IApplicationMenu, index: number)
+    {
+        this.currentMenu = index;
+        this.currentMenuLabel = item.label;
+        this.$emit("on-menu-change", item, index);
+    }
+
+    /**
+     * 二级菜单tab点击事件
+     * @member
+     */
+    protected onTabClick(item: IApplicationMenu, index: number)
+    {
+        if (index === this.currentTab)
+        {
+            return;
+        }
+        this.currentTab = index;
+        this.$emit("on-tab-change", item, index);
     }
 }
 </script>

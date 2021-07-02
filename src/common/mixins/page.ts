@@ -143,7 +143,7 @@ export default class Paging extends Component
     protected async mounted()
     {
 
-        await this.beforLoadRecords();
+        // await this.beforLoadRecords();
         
         this.$nextTick(() =>
         {
@@ -287,28 +287,28 @@ export default class Paging extends Component
         }
     }
 
-    /**
-     * 根据查询模型加载数据之前。
-     * @virtual
-     * @async
-     * @returns Promise
-     */
-    protected async beforLoadRecords(): Promise<any>
-    {
-        return null;
-    }
+    // /**
+    //  * 根据查询模型加载数据之前。
+    //  * @virtual
+    //  * @async
+    //  * @returns Promise
+    //  */
+    // protected async beforLoadRecords(): Promise<any>
+    // {
+    //     return null;
+    // }
 
-    /**
-     * 根据查询模型加载数据。
-     * @virtual
-     * @async
-     * @param  {ISearchModel} model 查询模型。
-     * @returns Promise
-     */
-    protected async loadRecords(model: IPaginFilterModel): Promise<IPagingResult<any>>
-    {
-        return null;
-    }
+    // /**
+    //  * 根据查询模型加载数据。
+    //  * @virtual
+    //  * @async
+    //  * @param  {ISearchModel} model 查询模型。
+    //  * @returns Promise
+    //  */
+    // protected async loadRecords(model: IPaginFilterModel): Promise<IPagingResult<any>>
+    // {
+    //     return null;
+    // }
 
     /**
      * 清空待筛选条件。

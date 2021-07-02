@@ -1,9 +1,11 @@
-import { RouteConfig } from "vue-router";
+import { Route, RouteConfig } from "vue-router";
 import { IApplicationMenu } from "src/models";
 
 export default
 {
-    resolveMenu
+    resolveMenu,
+    resolveActiveMenuIndex,
+    resolveActiveMenuTabIndex
 };
 
 /**
@@ -32,5 +34,48 @@ export function resolveMenu(routes: Array<RouteConfig>): Array<IApplicationMenu>
             });
         }
     });
+    return result;
+}
+
+/**
+ * 获取当前路由下的一级菜单索引
+ * @param currentRoute 当前路由
+ * @param menus 当前系统一级菜单列表
+ * @returns {number} 一级菜单索引
+ */
+export function resolveActiveMenuIndex(currentRoute: Route, menus: Array<IApplicationMenu>): number
+{
+    let result = 0;
+
+    for (let i = 0; i < menus.length; i++)
+    {
+        if (currentRoute.matched[0].path === menus[i].route.path)
+        {
+            result = i;
+            break;
+        }
+    }
+
+    return result;
+}
+
+/**
+ * 获取当前路由下的二级菜单索引
+ * @param currentRoute 当前路由
+ * @param tabs 当前系统二级菜单列表
+ */
+export function resolveActiveMenuTabIndex(currentRoute: Route, tabs: Array<IApplicationMenu>): number
+{
+    let result = 0;
+
+    for (let i = 0; i < tabs.length; i++)
+    {
+        if (currentRoute.name === tabs[i].route.name)
+        {
+            result = i;
+            break;
+        }
+    }
+
     return result;
 }

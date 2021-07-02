@@ -50,13 +50,11 @@
 </template>
 
 <script lang="ts">
-import { component, View, config } from "uxmid-vue-web";
-import { Page } from "src/common/mixins";
+import { component, View, config, mixins } from "uxmid-vue-web";
+import { Pagin } from "src/common/mixins";
 
-@component({
-    mixins: [ Page ]
-})
-export default class PersonManage extends View
+@component
+export default class SwitchTable extends mixins(Pagin)
 {
     /**
      * 表格行显示
@@ -71,13 +69,6 @@ export default class PersonManage extends View
      */
     @config({required: true, type: [Function, Array]})
     protected colColumuns: [Function, Array<any>];
-
-    /**
-     * 表格列显示
-     * @protected
-     */
-    @config({type: Function, default: () => ({})})
-    protected beforLoadFunc: Function;
 
     /**
      * 表格列显示
@@ -103,28 +94,6 @@ export default class PersonManage extends View
     protected get columns()
     {
         return this.isRowStyle ? this.rowColumuns : this.colColumuns;
-    }
-
-    /**
-     * 加载列表数据之前
-     * @protected
-     * @override
-     * @returns Promise<Function>
-     */
-    protected get beforLoadRecords(): Function
-    {
-        return this.beforLoadFunc;
-    }
-
-    /**
-     * 获取用户列表
-     * @protected
-     * @override
-     * @returns Promise<void>
-     */
-    protected get loadRecords(): Function
-    {
-        return this.loadFunc;
     }
 
     /**

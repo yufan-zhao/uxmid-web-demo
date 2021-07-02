@@ -5,7 +5,7 @@ import IPaginSearchModel from "./pagin-search-model";
  * @interface
  * @version 1.0.0
  */
-export default interface IFilterModel
+export default interface IPaginFilterModel
 {
     /**
      * 获取或设置当前页码。

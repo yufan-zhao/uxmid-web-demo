@@ -1,0 +1,123 @@
+.manage-detail
+{
+    padding-top: 28px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // padding-bottom: 20px;
+
+    .detail-content
+    {
+        height: 100%;
+        overflow: auto;
+
+        @{deep}.ivu-tabs.ivu-tabs-card
+        {
+            height: calc(100% - 45px);
+        }
+    }
+    .detail-nodata
+    {
+        margin-top: 180px;
+    }
+
+    &-header
+    {
+        display: flex;
+        justify-content: space-between;
+        min-height: 35px;
+        padding-left: 40px;
+        padding-right: 30px;
+        margin-bottom: 10px;
+        h3
+        {
+            font-size: 18px;
+            font-weight: bold;
+            color: #182334;
+        }
+        
+    }
+
+    &-operation
+    {
+        button
+        {
+            margin-left: 10px;
+        }
+    }
+   
+    @{deep}.ivu-tabs-card
+    {
+        padding-left: 40px;
+        flex: auto;
+        display: flex;
+        flex-direction: column;
+        .ivu-tabs-bar
+        {
+            margin-bottom: 0;
+            margin-right: 30px;
+
+            .ivu-tabs-nav-container
+            {
+                height: 40px;
+            }
+
+            .ivu-tabs-tab
+            {
+                text-align: center;
+                padding: 9px 0;
+                width: 106px;
+                height: 39px;
+                background: #f6f8fc;
+            }
+            .ivu-tabs-tab.ivu-tabs-tab-active
+            {
+                height: 40px;
+                background: #fff;
+            }
+        }
+        .ivu-tabs-content 
+        {
+            flex: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+            .ivu-tabs-tabpane{
+                height: 100%;
+
+                .ivu-table-wrapper 
+                {
+                    margin-top: 30px;
+                    .ivu-table, .ivu-table-default
+                    {
+                       .ivu-table-row
+                       {
+                           .ivu-table-cell
+                           {
+                                .opreation-btn-grounp
+                                {
+                                    a
+                                    {
+                                        margin-right: 20px;
+                                    }
+                                }
+                           }
+                       } 
+                    }
+
+                }
+            }
+        }
+    }
+
+    .ivu-form-item-content
+    {
+        .ivu-radio-group
+        {
+            .ivu-radio-wrapper 
+            {
+                margin-right: 20px;
+            }
+        }  
+    }
+    
+}

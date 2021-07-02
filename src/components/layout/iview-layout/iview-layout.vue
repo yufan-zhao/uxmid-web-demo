@@ -72,6 +72,7 @@
 import { component, Component, config, watch } from "uxmid-vue-web";
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";
+import { RouteUtils } from "src/common/utils";
 
 @component
 export default class IViewLayout extends Component
@@ -183,8 +184,10 @@ export default class IViewLayout extends Component
             this.menuList = [];
             return;
         }
+        const currentRoute = this.applicationContext.router.currentRoute;
+        const index = RouteUtils.resolveActiveMenuIndex(currentRoute, val);
 
-        this.onMenuClick(val[0], 0);
+        this.onMenuClick(val[index], index);
         this.menuList = val;
     }
 
@@ -201,7 +204,10 @@ export default class IViewLayout extends Component
             return;
         }
 
-        this.onTabClick(val[0], 0);
+        const currentRoute = this.applicationContext.router.currentRoute;
+        const index = RouteUtils.resolveActiveMenuTabIndex(currentRoute, val);
+
+        this.onTabClick(val[index], index);
         this.tabList = val;
     }
 

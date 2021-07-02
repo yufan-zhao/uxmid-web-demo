@@ -58,15 +58,20 @@ export default class DashboardView extends View
      */
     protected onTabChange(item: IApplicationMenu, index: number)
     {
-        // console.log("Tab Change: ", item);
+        if (this.applicationContext.router.currentRoute.fullPath === item.route.path)
+        {
+            return;
+        }
         this.applicationContext.router.push({name: item.route.name});
     }
 
+    /**
+     * vue钩子
+     * @created
+     */
     protected created()
     {
         this.menus = this.applicationContext.menus;
-        // this.tabs = this.menus[0].children;
-        // console.log(this.menus);
     }
 }
 </script>

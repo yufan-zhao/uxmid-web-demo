@@ -1,4 +1,4 @@
-import { Route } from "vue-router";
+import { RouteConfig } from "vue-router";
 
 /**
  * 表示系统的一个一级或菜单。
@@ -22,7 +22,7 @@ export default interface IApplicationMenu
      * 路由信息
      * @member
      */
-    route: Route;
+    route: RouteConfig;
 
     /**
      * 子菜单

@@ -5,12 +5,14 @@
         @on-menu-change="onMenuChange"
         @on-tab-change="onTabChange"
     >
-        <h1>测试核心插槽</h1>
+        <router-view></router-view>
     </l-iview-layout>
 </template>
 
 <script lang="ts">
 import { component, View, watch } from "uxmid-vue-web";
+
+import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";
 
 /**
@@ -24,35 +26,22 @@ export default class DashboardView extends View
      * 一级菜单列表
      * @property
      */
-    protected menus: Array<IApplicationMenu> =
-    [
-        {
-            label: "首页",
-            icon: "",
-            route: null
-        },
-        {
-            label: "测试",
-            icon: "",
-            route: null
-        }
-    ];
+    protected menus: Array<IApplicationMenu> = [];
 
     /**
      * 二级菜单列表
      * @property
      */
-    protected tabs: Array<IApplicationMenu> =
-    [
-        {
-            label: "标签1",
-            route: null
-        },
-        {
-            label: "标签2",
-            route: null
-        }
-    ];
+    protected tabs: Array<IApplicationMenu> = [];
+
+    /**
+     * 系统上下文
+     * @property
+     */
+    protected get applicationContext(): ApplicationContext
+    {
+        return ApplicationContext.current;
+    }
 
     /**
      * 菜单change事件
@@ -60,8 +49,7 @@ export default class DashboardView extends View
      */
     protected onMenuChange(item: IApplicationMenu, index: number)
     {
-        console.log("Menu Change: ", item);
-        // TODO 获取子路由填充至二级菜单中
+        this.tabs = item.children;
     }
 
     /**
@@ -70,8 +58,15 @@ export default class DashboardView extends View
      */
     protected onTabChange(item: IApplicationMenu, index: number)
     {
-        console.log("Tab Change: ", item);
-        // TODO 跳转路由
+        // console.log("Tab Change: ", item);
+        this.applicationContext.router.push({name: item.route.name});
+    }
+
+    protected created()
+    {
+        this.menus = this.applicationContext.menus;
+        // this.tabs = this.menus[0].children;
+        // console.log(this.menus);
     }
 }
 </script>

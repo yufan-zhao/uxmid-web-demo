@@ -184,11 +184,8 @@ export default class IViewLayout extends Component
             return;
         }
 
-        if (this.menuList.length === 0)
-        {
-            this.onMenuClick(val[0], 0);
-            this.menuList = val;
-        }
+        this.onMenuClick(val[0], 0);
+        this.menuList = val;
     }
 
     /**
@@ -204,15 +201,8 @@ export default class IViewLayout extends Component
             return;
         }
 
-        if (this.tabList.length === 0)
-        {
-            this.onTabClick(val[0], 0);
-            this.tabList = val;
-        }
-        else
-        {
-            // TODO 对于临时新增的tab菜单，有可能要提前展示，并且要有关闭按钮
-        }
+        this.onTabClick(val[0], 0);
+        this.tabList = val;
     }
 
     /**
@@ -259,10 +249,6 @@ export default class IViewLayout extends Component
      */
     protected onTabClick(item: IApplicationMenu, index: number)
     {
-        if (index === this.currentTab)
-        {
-            return;
-        }
         this.currentTab = index;
         this.$emit("on-tab-change", item, index);
     }
@@ -276,7 +262,8 @@ export default class IViewLayout extends Component
 
 .iview-dashboard-layout
 {
-    height: 100vh;
+    height: 100%;
+    overflow-y: auto;
 
     @{deep}>.ivu-layout
     {
@@ -287,12 +274,13 @@ export default class IViewLayout extends Component
     {
         display: flex;
         flex-direction: column;
+        overflow: hidden;
 
         .content-layout
         {
             width: 100%;
             height: 100%;
-            overflow-y: auto;
+            overflow-y: hidden;
             background-color: #fff;
             border-top: 1px solid #DCE0E7;
         }

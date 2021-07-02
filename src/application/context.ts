@@ -1,7 +1,7 @@
 import { IWorkbench, ApplicationContextBase, Exception, IEventProvider, Map } from "uxmid-core";
 import Router, { Route } from "vue-router";
 
-import { IApplicationSettings, IApplicationCredential, IHttpApi, AbstractHttpUrl } from "src/models";
+import { IApplicationSettings, IApplicationCredential, IApplicationMenu, IHttpApi, AbstractHttpUrl } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import Workbench from "./workbench";
 
@@ -15,6 +15,7 @@ export default class ApplicationContext extends ApplicationContextBase
     private _router: Router;
     private _httpApiMap: Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>;
     private _credentialMap: Map<APPLICATION_PLATFORM, IApplicationCredential>;
+    private _menus: Array<IApplicationMenu>;
 
     /**
      * 单例化上下文示例
@@ -92,6 +93,24 @@ export default class ApplicationContext extends ApplicationContextBase
     public set credentialMap(value: Map<APPLICATION_PLATFORM, IApplicationCredential>)
     {
         this._credentialMap = value;
+    }
+
+    /**
+     * 获取当前应用的菜单。
+     * @public
+     */
+    public get menus(): Array<IApplicationMenu>
+    {
+        return this._menus;
+    }
+
+    /**
+     * 设置当前应用的菜单。
+     * @public
+     */
+    public set menus(value: Array<IApplicationMenu>)
+    {
+        this._menus = value;
     }
 
     /**

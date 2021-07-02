@@ -10,9 +10,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 // import "view-design/dist/styles/iview.css";
 
 import ApplicationContext from "./context";
-import { applicationMenu } from "src/routes";
+import { routes } from "src/routes";
 import globalComponents from "src/components";
 import "src/styles/index.less";
+import { RouteUtils } from "src/common/utils";
 
 /**
  * 工作空间实现类
@@ -93,8 +94,11 @@ export default class Workspace extends View
         Vue.use(Router);
         
         // 初始化路由程序
-        let router = new Router({mode: "history", routes: applicationMenu});
+        let router = new Router({mode: "history", routes: routes});
 
+        const menus = RouteUtils.resolveMenu(routes);
+
+        context.menus = menus;
         context.router = router;
     }
 

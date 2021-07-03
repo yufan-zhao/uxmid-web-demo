@@ -32,7 +32,7 @@
                     ref="switchTable" 
                     :row-columuns="rowColumuns" 
                     :col-columuns="colColumuns"
-                    :load-func="loadFunc"
+                    :load-func="testPaginTableService.pagin.bind(testPaginTableService)"
                     @on-row-click="onRowClick"
                     @no-data="detail = {}"
                 >
@@ -49,6 +49,9 @@
 import { component, View, watch } from "uxmid-vue-web";
 import { IHttpResponse } from "src/models";
 import ManageDetail from "./detail.vue";
+import { TestPaginTableService } from "src/services";
+import { service } from "src/common/decorator";
+import { ExtendUtils } from "src/common/utils";
 
 @component({
     components:
@@ -58,6 +61,9 @@ import ManageDetail from "./detail.vue";
 })
 export default class ManageView extends View
 {
+    @service("TestPaginTableService")
+    protected testPaginTableService: TestPaginTableService;
+
     /**
      * 是否展开高级搜索
      * @protected
@@ -78,11 +84,21 @@ export default class ManageView extends View
      * @protected
      * @returns {Array<any>}
      */
-    protected get rowColumuns(): Array<any>
-    {
-        // 列表模式行渲染
-        return [];
-    }
+    protected rowColumuns: Array<any> =
+    [
+        {
+            title: "姓名",
+            key: "name"
+        },
+        {
+            title: "年龄",
+            key: "age"
+        },
+        {
+            title: "性别",
+            key: "gender"
+        }
+    ];
 
     /**
      * 表格详情模式行渲染
@@ -90,11 +106,34 @@ export default class ManageView extends View
      * @protected
      * @returns {Array<any>}
      */
-    protected get colColumuns(): Array<any>
-    {
-        // 详情模式行渲染
-        return [];
-    }
+    protected colColumuns: Array<any> =
+    [
+        {
+            render: (h, {row}: any) =>
+            {
+                let nameDiv = ExtendUtils.tooltipElement(row.name, 14, h, "300px", "strong","f18 vb");
+                let tip = ExtendUtils.createTipElement(h, "重大风险", "#FF4D3F", false);
+                let statusTip = ExtendUtils.createStatusElement(h, "", "#FF4D3F", true);
+
+                return h("div", {class: "col-container"}, [
+                    h("div", {class: "content"}, [
+                        // 标题部分
+                        h("i-row", {class: "title"}, [
+                            h("i-col", {attrs: {span: "24"}}, [nameDiv, tip]),
+                            h("span", {class: "status-tips"}, [statusTip])
+                        ]),
+                        // 说明部分
+                        h("i-row", {class: "desc"}, [
+                            h("i-col", {attrs: {span: "24"}}, `名称：${row.name || "-"}`),
+                            h("i-col",
+                                {attrs: {span: "24"}},
+                                `年龄：${row.age}`)
+                        ])
+                    ])
+                ]);
+            }
+        }
+    ];
 
     /**
      * 触发查询列表
@@ -128,25 +167,6 @@ export default class ManageView extends View
         //
     }
 
-    protected async loadFunc(filter: any): Promise<any>
-    {
-        const result: IHttpResponse =
-        {
-            code: 200,
-            content:
-            {
-                records: []
-            },
-            extras:
-            {
-                current: 1,
-                total: 0,
-                pages: 0
-            }
-        };
-        return result;
-    }
-
     /**
      * 触发列表选中操作
      * @member
@@ -155,7 +175,6 @@ export default class ManageView extends View
      */
     protected async onRowClick(row: any, index?: number): Promise<void>
     {
-        // this.detail = await this.assessService.detail(row.id);
         this.detail = row;
     }
 }

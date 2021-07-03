@@ -7,12 +7,14 @@
             >
             </i-table>
         </div>
-        <div class="page-container">
-            <i-page
-                :total="paginTotal"
-                @on-change="onPageChange"
-            ></i-page>
-        </div>
+        <slot>
+            <div class="page-container">
+                <i-page
+                    :total="paginTotal"
+                    @on-change="onPageChange"
+                ></i-page>
+            </div>
+        </slot>
     </div>
 </template>
 

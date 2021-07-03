@@ -7,7 +7,7 @@
             <!-- 切换表格风格 END -->
 
             <!-- 页码信息 BEGIN -->
-            <span class="display-page">共{{recordCount}}条数据，<span class="font-main">{{pageCount === 0 ? 0 :pageIndex}}</span>/{{pageCount}}</span>
+            <span class="display-page">共{{paginTotal}}条数据，<span class="font-main">{{paginCurrentPage}}</span>/{{paginPages}}</span>
             <!-- 页码信息 END -->
         </div>
         
@@ -24,12 +24,12 @@
                         :style="{'left': isRowStyle ? '30px' :0,'right': isRowStyle ? '30px' :0}"
                         :columns="columns"
                         :records="records"
-                        :loading="loading"
-                        :page-size="pageSize"
-                        :page-index="pageIndex"
-                        :page-count="pageCount"
+                        :loading="paginIsLoading"
+                        :page-size="paginSize"
+                        :page-index="paginCurrentPage"
+                        :page-count="paginPages"
                         :all-loaded="allLoaded"
-                        :record-count="recordCount"
+                        :record-count="paginTotal"
                         @on-page-change="onPageChange"
                         @on-row-click="onRowClick"
                         :showCount="showCount">
@@ -52,6 +52,7 @@
 <script lang="ts">
 import { component, View, config, mixins } from "uxmid-vue-web";
 import { Pagin } from "src/common/mixins";
+import { IPaginFilterModel } from "src/models";
 
 @component
 export default class SwitchTable extends mixins(Pagin)
@@ -71,11 +72,11 @@ export default class SwitchTable extends mixins(Pagin)
     protected colColumuns: [Function, Array<any>];
 
     /**
-     * 表格列显示
+     * 表格数据加载方法，来自service
      * @protected
      */
     @config({type: Function, default: () => ({})})
-    protected loadFunc: Function;
+    protected loadFunc: <T>(searchFilters: IPaginFilterModel) => T;
 
     /**
      * 表格加载状态
@@ -91,9 +92,43 @@ export default class SwitchTable extends mixins(Pagin)
      */
     protected showCount: boolean = false;
 
+    /**
+     * 表格数据
+     * @property
+     */
+    protected data: Array<any> = [];
+
+    /**
+     * 分页查询筛选条件
+     * @property
+     */
+    protected searchFilters: IPaginFilterModel = {};
+
+    /**
+     * 当前渲染的column配置
+     * @get
+     */
     protected get columns()
     {
         return this.isRowStyle ? this.rowColumuns : this.colColumuns;
+    }
+
+    /**
+     * 表格传入数据
+     * @get
+     */
+    protected get records(): Array<any>
+    {
+        return this.data;
+    }
+
+    /**
+     * 是否全部加载完毕
+     * @get
+     */
+    protected allLoaded(): boolean
+    {
+        return this.paginCurrentPage === this.paginPages;
     }
 
     /**
@@ -107,6 +142,28 @@ export default class SwitchTable extends mixins(Pagin)
         this.isRowStyle && (this.isRowStyle = false);
         
         this.$emit("on-row-click", row, index);
+    }
+
+    /**
+     * 页码变化事件
+     * @member
+     * @param pageIndex 
+     */
+    protected async onPageChange(pageIndex: number)
+    {
+        this.paginCurrentPage = pageIndex;
+        const appendData = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
+        this.data.push(...appendData);
+    }
+
+    /**
+     * vue钩子
+     * @created
+     */
+    protected async created()
+    {
+        this.paginCurrentPage += 1;
+        this.data = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
     }
 }
 </script>

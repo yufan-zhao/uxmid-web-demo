@@ -41,8 +41,8 @@ export default class Pagin extends Component
 
     /**
      * 调用接口并且处理返回数据方法
-     * @param loadFunc 
-     * @param searchFilters 
+     * @param loadFunc Service中的分页查询方法，返回wayto风格的分页接口
+     * @param searchFilters 查询条件入参
      */
     protected async paginLoadRecords(loadFunc: <T>(filters: IPaginFilterModel) => T, searchFilters: IPaginFilterModel): Promise<Array<any>>
     {

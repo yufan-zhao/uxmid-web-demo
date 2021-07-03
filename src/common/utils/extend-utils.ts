@@ -7,7 +7,10 @@ export default
 {
     imagePath,
     decodeFilterValue,
-    throttle
+    throttle,
+    createTipElement,
+    createStatusElement,
+    tooltipElement
 };
 
 /**
@@ -93,4 +96,154 @@ export function decodeFilterValue(filter: IPaginFilterItem, value: any): any
     }
 
     return filterValue;
+}
+
+/**
+ * 创建标签
+ * @param h 创建函数
+ * @param label 标签文字
+ * @param color 标签颜色
+ * @param invert 是否反色
+ */
+export function createTipElement(h: Function, label: string, color: string, invert: boolean = false)
+{
+    return h("span", {
+        class: "title-tip",
+        style: {
+            color: invert ? "#fff" : color,
+            "background-color": invert ? color : "transparent",
+            "border": `1px solid ${color}`,
+            "font-size": "12px"
+        }
+    }, label);
+}
+
+/**
+ * 创建一个状态标签
+ * @param h 
+ * @param label 
+ * @param color 
+ * @param invert 
+ */
+export function createStatusElement(h: Function, label: string, color: string, invert: boolean = false)
+{
+    return h("span", {
+        class: "status-tip",
+        style: {
+            color: invert ? "#fff" : color,
+            "background-color": invert ? color : "transparent",
+            "border": `1px solid ${color}`
+        }
+    }, label);
+}
+
+/**
+ * 单行文本一处 采取省略号+tooltip。
+ * value（内容） lengths（截取内容长度或字数） h（表格里render的h函数）
+ * maxWidth（div最大宽度） ele（标签类型） className（class名）
+ * @param value
+ * @requires any
+ */
+export function tooltipElement(value, lengths, h, maxWidth, ele = "div",className = ""): any
+{
+    let nameDiv = null;
+
+    if (value && value.length > lengths)
+    {
+        if (typeof value !== "object")
+        {
+            nameDiv = h("i-tooltip",
+            {
+                props: {
+                    theme: "light",
+                    content: value,
+                    transfer: true,
+                    "max-width": maxWidth
+                },
+                class: "more-text-tooltip f14"
+            },
+            [
+                h(ele,
+                {
+                    style:
+                    {
+                        maxWidth: maxWidth,
+                        display: "inline-block",
+                        "white-space": "nowrap"
+                    },
+                    class: `rows-1 ${className}`
+                },value || "-")
+
+            ]);
+        }
+        else
+        {
+            let element = [];
+            for(let i of value)
+            {
+                let box = h("span",{},[
+                    h("span",i.userName),
+                    h("u-user-tooltip",
+                    {
+                        attrs:
+                        {
+                            userId: i.userId,
+                            type: "user",
+                            userInfo: {}
+                        }
+
+                    },
+                    [
+                        h("i",
+                        {
+                            class: "iconfont icon-icon_information cursor-pointer main-color"
+                        } , "；")
+                    ])
+                ]);
+
+                element.push(box);
+            }
+
+            nameDiv = h("i-tooltip",
+            {
+                props: {
+                    theme: "light",
+                    content: "替换内同容",
+                    transfer: true,
+                    "max-width": maxWidth
+                },
+                class: "more-text-tooltip f14"
+            },
+            [
+                h("div",{slot:  "content"},
+                [
+                    element
+                ]),
+                h("div",{
+                    class: "rows-1",
+                    style:
+                    {
+                        maxWidth: maxWidth,
+                        display: "inline-block"
+                    }
+                },element)
+            ]);
+        }
+    }
+
+    else
+    {
+        nameDiv = h(ele,
+        {
+            class: className,
+            style:
+            {
+                maxWidth: maxWidth,
+                display: "inline-block",
+                "white-space": "nowrap"
+            }
+        },value || "-");
+    }
+
+    return nameDiv;
 }

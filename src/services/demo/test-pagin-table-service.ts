@@ -71,6 +71,12 @@ export default class TestPaginTableService extends ServiceBase
             };
         }
         Logger.debug("[TestPaginTableService pagin]", "返回报文：", JSON.stringify(result));
-        return result;
+        return new Promise((resolve, reject) =>
+        {
+            setTimeout(() =>
+            {
+                resolve(result);
+            }, 1200);
+        });
     }
 }

@@ -47,7 +47,6 @@
 
 <script lang="ts">
 import { component, View, watch } from "uxmid-vue-web";
-import { IHttpResponse } from "src/models";
 import ManageDetail from "./detail.vue";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";
@@ -77,6 +76,12 @@ export default class ManageView extends View
      * @property
      */
     protected detail: any = {};
+
+    /**
+     * 筛选条件（除去分页）
+     * @property
+     */
+    protected filters: any = {};
 
     /**
      * 表格列表模式行渲染
@@ -113,7 +118,7 @@ export default class ManageView extends View
             {
                 let nameDiv = ExtendUtils.tooltipElement(row.name, 14, h, "300px", "strong","f18 vb");
                 let tip = ExtendUtils.createTipElement(h, "重大风险", "#FF4D3F", false);
-                let statusTip = ExtendUtils.createStatusElement(h, "", "#FF4D3F", true);
+                let statusTip = ExtendUtils.createStatusElement(h, row.gender, "#FF4D3F", true);
 
                 return h("div", {class: "col-container"}, [
                     h("div", {class: "content"}, [
@@ -143,7 +148,7 @@ export default class ManageView extends View
      */
     protected onSearch(): void
     {
-        //
+        this._switchTable.search(this.filters);
     }
 
     /**
@@ -154,7 +159,7 @@ export default class ManageView extends View
      */
     protected onReset(): void
     {
-        //
+        this._switchTable.reset();
     }
 
     /**
@@ -175,7 +180,16 @@ export default class ManageView extends View
      */
     protected async onRowClick(row: any, index?: number): Promise<void>
     {
-        this.detail = row;
+        this.detail = row || {};
+    }
+
+    /**
+     * switchTable组件类
+     * @ref
+     */
+    private get _switchTable(): any
+    {
+        return this.$refs["switchTable"] as any;
     }
 }
 </script>

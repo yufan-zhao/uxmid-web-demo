@@ -79,6 +79,13 @@ export default class SwitchTable extends mixins(Pagin)
     protected loadFunc: <T>(searchFilters: IPaginFilterModel) => T;
 
     /**
+     * 初始查询条件
+     * @protected
+     */
+    @config({required: false, default: () => ({})})
+    protected initQueryParams: IPaginFilterModel;
+
+    /**
      * 表格加载状态
      * @protected
      */
@@ -126,9 +133,41 @@ export default class SwitchTable extends mixins(Pagin)
      * 是否全部加载完毕
      * @get
      */
-    protected allLoaded(): boolean
+    protected get allLoaded(): boolean
     {
         return this.paginCurrentPage === this.paginPages;
+    }
+
+    /**
+     * 表单搜索方法
+     * @public
+     */
+    public async search(filters: any): Promise<void>
+    {
+        this.searchFilters.params = filters;
+        this.onRowClick(undefined, -1);
+        this.data = [];
+        this.paginTotal = 0;
+        this.paginSize = 10;
+        this.paginCurrentPage = 1;
+        this.paginPages = 0;
+        const appendData = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
+        if (appendData.length > 0)
+        {
+            appendData[0]["_highlight"] = true;
+            this.onRowClick(appendData[0], 0);
+        }
+        this.data.push(...appendData);
+    }
+
+    /**
+     * 表单重置方法
+     * @public
+     */
+    public async reset(): Promise<void>
+    {
+        this.searchFilters = {};
+        this.search(undefined);
     }
 
     /**
@@ -162,8 +201,15 @@ export default class SwitchTable extends mixins(Pagin)
      */
     protected async created()
     {
+        this.searchFilters = this.initQueryParams;
         this.paginCurrentPage += 1;
-        this.data = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
+        const data = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
+        if (data.length > 0)
+        {
+            data[0]["_highlight"] = true;
+            this.onRowClick(data[0], 0);
+        }
+        this.data = data;
     }
 }
 </script>

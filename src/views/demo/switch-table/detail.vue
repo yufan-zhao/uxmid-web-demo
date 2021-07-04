@@ -1,7 +1,7 @@
 <template>
     <div class="manage-detail">
-        <div class="detail-content">
-            <div class="detail-content" v-if="detail.name">
+        <div class="detail-content" v-if="detail.name">
+            <div class="detail-content" >
                 <section class="manage-detail-header">
                     <h3>{{detail.name || "-"}}</h3>
 

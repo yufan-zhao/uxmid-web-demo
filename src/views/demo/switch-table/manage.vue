@@ -42,6 +42,13 @@
                 </u-switch-table>
             </template>
         </u-page-content>
+
+        <main-insert-update-modal
+            ref="mainInsertUpdateModal"
+            :insert="testPaginTableService.insert.bind(testPaginTableService)"
+            :update="testPaginTableService.update.bind(testPaginTableService)"
+        >
+        </main-insert-update-modal>
     </div>
 </template>
 
@@ -51,11 +58,13 @@ import ManageDetail from "./detail.vue";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";
 import { ExtendUtils } from "src/common/utils";
+import InsertUpdateModal from "./_components/insert-update-modal.vue";
 
 @component({
     components:
     {
-        "u-detail": ManageDetail
+        "u-detail": ManageDetail,
+        "main-insert-update-modal": InsertUpdateModal
     }
 })
 export default class ManageView extends View
@@ -169,7 +178,24 @@ export default class ManageView extends View
      */
     protected async onOperations(type: string, data?: any)
     {
-        //
+        switch(type)
+        {
+            case "insert":
+            {
+                this._mainInsertUpdateModal.open();
+                break;
+            }
+            case "update":
+            {
+                this._mainInsertUpdateModal.open(data);
+                break;
+            }
+            default:
+            {
+                // do nothing
+                break;
+            }
+        }
     }
 
     /**
@@ -190,6 +216,15 @@ export default class ManageView extends View
     private get _switchTable(): any
     {
         return this.$refs["switchTable"] as any;
+    }
+
+    /**
+     * 主新增编辑弹层
+     * @ref
+     */
+    private get _mainInsertUpdateModal(): InsertUpdateModal
+    {
+        return this.$refs["mainInsertUpdateModal"] as InsertUpdateModal;
     }
 }
 </script>

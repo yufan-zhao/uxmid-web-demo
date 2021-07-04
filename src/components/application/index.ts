@@ -5,3 +5,4 @@ export { default as uPaginTable } from "./pagin-table";
 export { default as uSelectBox } from "./select-box";
 export { default as uPageList } from "./page-list";
 export { default as uPageContent } from "./page-content";
+export { default as uCrudModal } from "./crud-modal";

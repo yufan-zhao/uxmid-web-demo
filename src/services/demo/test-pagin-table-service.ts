@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "uxmid-core";
-import { IHttpResponse, IPaginFilterModel } from "src/models";
+import { IHttpResponse, IHttpRequest, IPaginFilterModel } from "src/models";
 
 import ServiceBase from "../service-base";
 
@@ -76,7 +76,40 @@ export default class TestPaginTableService extends ServiceBase
             setTimeout(() =>
             {
                 resolve(result);
-            }, 1200);
+            }, 300);
         });
+    }
+
+    public async insert(data: any): Promise<IHttpResponse>
+    {
+        const req: IHttpRequest = {data: data};
+
+        Logger.debug("[TestPaginTableService insert]", "请求报文：", JSON.stringify(req));
+        const res: IHttpResponse = {code: 200, content: {msg: "ok"}};
+        Logger.debug("[TestPaginTableService insert]", "返回报文：", JSON.stringify(res));
+
+        return res;
+    }
+
+    public async update(data: any): Promise<IHttpResponse>
+    {
+        const req: IHttpRequest = {data: data};
+
+        Logger.debug("[TestPaginTableService insert]", "请求报文：", JSON.stringify(req));
+        const res: IHttpResponse = {code: 200, content: {msg: "ok"}};
+        Logger.debug("[TestPaginTableService insert]", "返回报文：", JSON.stringify(res));
+        
+        return res;
+    }
+
+    public async delete(id: number): Promise<IHttpResponse>
+    {
+        const req: IHttpRequest = {data: {id: id}};
+
+        Logger.debug("[TestPaginTableService insert]", "请求报文：", JSON.stringify(req));
+        const res: IHttpResponse = {code: 200, content: {msg: "ok"}};
+        Logger.debug("[TestPaginTableService insert]", "返回报文：", JSON.stringify(res));
+        
+        return res;
     }
 }

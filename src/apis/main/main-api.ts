@@ -1,11 +1,15 @@
 import { IHttpRequest } from "src/models";
 import Apis from "../apis";
 import ApiUrls from "./application";
+import { ApplicationContext } from "src/application";
 
 export default class MainApis extends Apis<ApiUrls>
 {
     // 认证接口
-    public login = (options?: IHttpRequest) => this.send(this._urls.login, options, "post"); // 登录
+    public login            = (options?: IHttpRequest) => this.send(this._urls.login, options, "post");                         // 登录
+    public getVerifyImg     = (options?: IHttpRequest) => this.send(this._urls.getVerifyImg, options, "post");                  // 登录页请求图形验证码
+    public findPwdMsgCode   = (options?: IHttpRequest) => this.send(this._urls.findPwdMsgCode, options, "post");                // 找回密码短信验证码
+    public findPassword     = (options?: IHttpRequest) => this.send(this._urls.findPassword, options, "post");                  // 找回密码
 
     // 权限接口
     public permissionList   = (options?: IHttpRequest) => this.send(this._urls.permissionList, options, "get");                 // 列表
@@ -41,4 +45,26 @@ export default class MainApis extends Apis<ApiUrls>
     public dictInsert = (options?: IHttpRequest) => this.send(this._urls.dictInsert, options, "post");                          // 新增
     public dictUpdate = (options?: IHttpRequest) => this.send(this._urls.dictUpdate, options, "put");                           // 修改
     public dictDelete = (options?: IHttpRequest) => this.send(this._urls.dictDelete, options, "put");                           // 删除
+
+    /**
+     * 自定义凭证设置实现同步方法
+     * @param url 
+     * @param options 
+     * @param method 
+     */
+    protected setAuthorizationHeader(requestConfig: IHttpRequest): void
+    {
+        const applicationContext = ApplicationContext.current;
+        if (applicationContext.credential)
+        {
+            requestConfig.headers["Authorization"] = "Bearer " + applicationContext.credential.credentialId;
+        }
+
+        // 主接口用上下文中的凭证即可
+        // const credential = this.getCredential();
+        // if (credential)
+        // {
+        //     requestConfig.headers["Authorization"] = credential.token;
+        // }
+    }
 }

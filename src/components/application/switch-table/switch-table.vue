@@ -83,7 +83,7 @@ export default class SwitchTable extends mixins(Pagin)
      * @protected
      */
     @config({required: false, default: () => ({})})
-    protected initQueryParams: IPaginFilterModel;
+    protected initQueryParams: any;
 
     /**
      * 表格加载状态
@@ -201,7 +201,7 @@ export default class SwitchTable extends mixins(Pagin)
      */
     protected async created()
     {
-        this.searchFilters = this.initQueryParams;
+        this.searchFilters = { data: this.initQueryParams };
         this.paginCurrentPage += 1;
         const data = await this.paginLoadRecords(this.loadFunc, this.searchFilters);
         if (data.length > 0)

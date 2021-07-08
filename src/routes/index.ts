@@ -1,6 +1,8 @@
 import { RouteConfig } from "vue-router";
 
 const dashboard = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/dashboard")), "dashboard"); // iview dashboard后台管理系统布局组合组件
+
+const login = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/login/login")), "login");
 const switchTable = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/demo/switch-table/manage")), "demo");
 const paginTable = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/demo/pagin-table/manage")), "demo");
 const home = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/home/home")), "home");
@@ -12,6 +14,10 @@ const routes: Array<RouteConfig> =
     {
         path: "/",
         redirect: "/home"
+    },
+    {
+        path: "/login",
+        component: login
     },
     {
         name: "home",

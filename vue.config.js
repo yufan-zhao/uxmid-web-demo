@@ -146,7 +146,7 @@ module.exports =
         {
             "/appraiseApi":
             {
-                target: "http://47.107.50.215:9013"
+                target: "https://rj.appraise.wayto.com.cn"
             }
         }
     }

@@ -3,7 +3,10 @@ import BusinessUrl from "./business";
 export default class ApplicationUrl extends BusinessUrl
 {
     // 认证接口
-    public login            = "/oauth/token";
+    public login            = "/oauth/token";                                           // 登录
+    public getVerifyImg     = "/free/getVerifyImg";                                     // 登录页请求图形验证码
+    public findPwdMsgCode   = "/users/getPwdSendMsg/{userName}/{mobile}";               // 找回密码短信验证码
+    public findPassword     = "/users/retrievePwd";                                     // 找回密码
 
     // 权限接口
     public permissionList   = "/permission/list";

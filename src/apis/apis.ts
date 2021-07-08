@@ -21,23 +21,40 @@ export default abstract class Apis<T> implements IHttpApi<T>
         this._prefix = prefix;
     }
 
-    protected async send(url: string, options?: IHttpRequest, method: string = "post"): Promise<IHttpResponse>
+    /**
+     * 发送请求方法
+     * @param url 
+     * @param options 
+     * @param method 
+     */
+    protected send(url: string, options?: IHttpRequest, method?: string): Promise<IHttpResponse>
     {
-        if (!url)
-        {
-            throw new ArgumentException("url is null.");
-        }
-        const credential = this.getCredential();
-
-        return HttpClient.instance[method](
+        const requestConfig: IHttpRequest =
         {
             url: `${this._origin}${this._prefix}${url}`,
-            ...options,
-            token: credential ? credential.token : null
-        });
+            headers: {},
+            ...options
+        };
+
+        // 主动设置凭证
+        this.setAuthorizationHeader(requestConfig);
+
+        return HttpClient.instance[method](requestConfig);
     }
 
-    private getCredential(): IApplicationCredential
+    /**
+     * 自定义设置请求头凭证
+     * @param headers 请求头对象 
+     * @returns {void}
+     */
+    protected abstract setAuthorizationHeader(requestConfig: IHttpRequest): void;
+
+    /**
+     * 获取当前请求api的凭证
+     * @protected
+     * @returns {IApplicationCredential}
+     */
+    protected getCredential(): IApplicationCredential
     {
         if (!this._credential)
         {

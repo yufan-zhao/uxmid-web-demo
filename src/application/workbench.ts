@@ -4,6 +4,7 @@ import { IHttpApi, AbstractHttpUrl, IApplicationCredential } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import ApplicationContext from "./context";
 import Workspace from "./workspace";
+import "src/broadcasts";
 import { MainApi, MainUrls } from "src/apis";
 
 /**

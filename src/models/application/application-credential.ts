@@ -6,5 +6,10 @@ import { ICredential } from "uxmid-core";
  */
 export default interface IApplicationCredential extends ICredential
 {
-    token: string;
+    token?: string;
+
+    /**
+     * 用户对象
+     */
+    user?: any;
 }

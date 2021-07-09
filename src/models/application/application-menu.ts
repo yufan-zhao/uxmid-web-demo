@@ -25,6 +25,12 @@ export default interface IApplicationMenu
     route: RouteConfig;
 
     /**
+     * 是否隐藏tab菜单
+     * @member
+     */
+    hideTab?: boolean;
+
+    /**
      * 子菜单
      * @member
      */

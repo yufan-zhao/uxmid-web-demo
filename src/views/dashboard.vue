@@ -2,6 +2,7 @@
     <l-iview-layout
         :menus="menus"
         :tabs="tabs"
+        :hideTab="currentMenu === null ? false : currentMenu.hideTab"
         @on-menu-change="onMenuChange"
         @on-tab-change="onTabChange"
     >
@@ -35,6 +36,12 @@ export default class DashboardView extends View
     protected tabs: Array<IApplicationMenu> = [];
 
     /**
+     * 当前菜单
+     * @property
+     */
+    protected currentMenu: IApplicationMenu = null;
+
+    /**
      * 系统上下文
      * @property
      */
@@ -49,6 +56,8 @@ export default class DashboardView extends View
      */
     protected onMenuChange(item: IApplicationMenu, index: number)
     {
+        this.currentMenu = item;
+        console.log("currentMenu", this.currentMenu);
         this.tabs = item.children;
     }
 

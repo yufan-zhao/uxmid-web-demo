@@ -23,6 +23,7 @@ export function resolveMenu(routes: Array<RouteConfig>): Array<IApplicationMenu>
             result.push({
                 label: item.meta.label,
                 icon: item.meta.icon,
+                hideTab: item.meta.hideTab,
                 route: item,
                 children: item.children.map(jtem =>
                 {

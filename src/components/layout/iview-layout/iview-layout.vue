@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </i-header>
-                <i-content class="main-content">
+                <i-content class="main-content" :class="{'hide-tab': hideTab}">
                     <div class="tab-layout">
                         <ul class="tab-list">
                             <li 
@@ -90,6 +90,13 @@ export default class IViewLayout extends Component
      */
     @config({required: false, type: Array, default: () => []})
     protected tabs: Array<IApplicationMenu>;
+
+    /**
+     * 是否隐藏一级菜单下的tab菜单
+     * @config
+     */
+    @config({required: false, type: Boolean, default: false})
+    protected hideTab: boolean;
 
     /**
      * 是否收缩菜单
@@ -289,6 +296,17 @@ export default class IViewLayout extends Component
             overflow-y: hidden;
             background-color: #fff;
             border-top: 1px solid #DCE0E7;
+        }
+    }
+    .main-content.hide-tab
+    {
+        .tab-layout
+        {
+            display: none;
+        }
+        .content-layout
+        {
+            border-top: none;
         }
     }
 }

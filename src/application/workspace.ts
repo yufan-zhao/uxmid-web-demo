@@ -92,11 +92,13 @@ export default class Workspace extends View
     {
         // 注册路由组件
         Vue.use(Router);
-        
-        // 初始化路由程序
-        let router = new Router({mode: "history", routes: routes});
 
         const menus = RouteUtils.resolveMenu(routes);
+
+        routes.push({path: "/", redirect: menus[0].route.path});
+
+        // 初始化路由程序
+        let router = new Router({mode: "history", routes: routes});
 
         context.menus = menus;
         context.router = router;

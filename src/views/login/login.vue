@@ -122,7 +122,7 @@
 <script lang="ts">
 import { Application } from "uxmid-core";
 import { component, View } from "uxmid-web";
-import { UserService } from "src/services";
+import { AuthService } from "src/services";
 import { service } from "common/decorator";
 import { StringUtils, Patterns, Messages } from "src/common/utils";
 import { ApplicationContext } from "../../application";
@@ -134,10 +134,10 @@ export default class Login extends View
      * 请求服务。
      * @member
      * @private
-     * @returns {UserService}
+     * @returns {AuthService}
      */
-    @service("UserService")
-    private service: UserService;
+    @service("AuthService")
+    private authService: AuthService;
 
     /**
      * 获取当前应用的上下文实例。
@@ -365,7 +365,7 @@ export default class Login extends View
         this.model.vc_uuid = new Date().getTime();
         try
         {
-            const { content } = await this.service.getVerifyImg(this.model.vc_uuid);
+            const { content } = await this.authService.getVerifyImg(this.model.vc_uuid);
 
             this.verifyImg = window.URL.createObjectURL(content);
         }
@@ -444,7 +444,7 @@ export default class Login extends View
         try
         {
             // 发送短信验证码
-            const res = await this.service.findPwdMsgCode(this.findModel);
+            const res = await this.authService.findPwdMsgCode(this.findModel);
             this.$message.success("发送成功");
             this.sendCodeCooling();
         }
@@ -508,7 +508,7 @@ export default class Login extends View
                     //     this.model.password = this.findModel.newPwd;
                     // }
                     // 调用登录接口
-                    const loginRes = await this.service.login(this.model);
+                    const loginRes = await this.authService.login(this.model);
                 }
                 catch({ msg })
                 {

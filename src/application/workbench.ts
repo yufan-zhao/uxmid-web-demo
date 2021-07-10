@@ -1,11 +1,11 @@
 import { WorkbenchBase, ApplicationContextBase, Logger, ConsoleLogHandler, IServiceProvider, ServiceProviderFactory, Map } from "uxmid-core";
 
-import { IHttpApi, AbstractHttpUrl, IApplicationCredential } from "src/models";
+import { IHttpApi, IApplicationCredential } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import ApplicationContext from "./context";
 import Workspace from "./workspace";
 import "src/broadcasts";
-import { MainApi, MainUrls } from "src/apis";
+import { MainApis } from "src/apis";
 
 /**
  * 提供工作台的基本封装。
@@ -83,14 +83,13 @@ export default class Workbench extends WorkbenchBase
     {
         try
         {
-            context.httpApiMap = new Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>();
+            context.httpApiMap = new Map<APPLICATION_PLATFORM, IHttpApi>();
 
             // 添加主接口子模块
             let platform: APPLICATION_PLATFORM = APPLICATION_PLATFORM.MAIN,
-                apis: MainUrls = new MainUrls(),
                 origin: string = context.settings.mainOriginUrl,
                 prefix: string = context.settings.mainPrefix;
-            context.httpApiMap.set(platform, new MainApi(platform, apis, origin, prefix));
+            context.httpApiMap.set(platform, new MainApis(platform, origin, prefix));
         }
         catch(err)
         {

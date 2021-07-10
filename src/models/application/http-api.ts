@@ -4,7 +4,7 @@ import { APPLICATION_PLATFORM } from "src/enums";
 /**
  * 表示一个平台的Api
  */
-export default interface IHttpApi<T>
+export default interface IHttpApi
 {
     /**
      * Api所属平台
@@ -17,12 +17,6 @@ export default interface IHttpApi<T>
      * @returns {IApplicationCredential} 安全凭证
      */
     _credential: IApplicationCredential;
-
-    /**
-     * 请求接口路径对象。
-     * @returns {T} 路径对象
-     */
-    _urls: T;
 
     /**
      * 接口前半部分。

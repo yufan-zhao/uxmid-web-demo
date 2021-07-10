@@ -1,2 +1,2 @@
-export { default as MainApi } from "./main-api";
-export { default as MainUrls } from "./application";
+export { default as MainApis } from "./main-apis";
+export { default as MainUrls } from "./main-urls";

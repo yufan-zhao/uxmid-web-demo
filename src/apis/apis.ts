@@ -5,18 +5,18 @@ import { IApplicationCredential, IHttpApi, IHttpRequest, IHttpResponse } from "s
 import { ApplicationContext } from "src/application";
 import HttpClient from "src/common/http/http-client";
 
-export default abstract class Apis<T> implements IHttpApi<T>
+export default abstract class Apis implements IHttpApi
 {
     public _platform: APPLICATION_PLATFORM;
     public _credential: IApplicationCredential;
-    public _urls: T;
+    // public _urls: T;
     public _origin: string;
     public _prefix: string;
 
-    public constructor(platform: APPLICATION_PLATFORM, urls: T, origin: string, prefix: string)
+    public constructor(platform: APPLICATION_PLATFORM, origin: string, prefix: string)
     {
         this._platform = platform;
-        this._urls = urls;
+        // this._urls = urls;
         this._origin = origin;
         this._prefix = prefix;
     }

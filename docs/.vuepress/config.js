@@ -8,7 +8,7 @@ module.exports =
         nav:
         [
             { text: "指南", link: "/guide/"},
-            { text: "文件结构", link: "/category/apis"}
+            { text: "目录", link: "/category/apis"}
         ],
         sidebar:
         {

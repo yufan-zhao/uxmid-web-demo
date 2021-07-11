@@ -1,8 +1,6 @@
 # routes
 
-## 路由配置说明
-
-### 常规使用说明
+## 常规使用说明
 
 ``` typescript
 {
@@ -31,6 +29,6 @@ meta中携带的信息说明：
 | icon | string |菜单左侧icon（iconfont类） |
 | hideTab | boolean |该菜单不展示tab菜单 |
 
-### 配合权限使用说明
+## 配合权限使用说明
 
 TODO

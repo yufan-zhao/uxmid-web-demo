@@ -5,14 +5,23 @@
         display: flex;
         align-items: center;
         height: 68px;
-        padding-left: 28px;
+        padding-left: 20px;
         background-color: #2D52F2;
+        overflow: hidden;
 
         .label
         {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
             color: #fff;
+            white-space: nowrap;
+            transition: all ease-in-out 0.3s;
+        }
+        .logo-img
+        {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
         }
     }
     .menu-instance-item
@@ -25,8 +34,14 @@
 
         i
         {
-            margin-left: 31px;
+            margin-left: 26px;
             font-size: 18px;
+            margin-right: 18px;
+        }
+        span
+        {
+            white-space: nowrap;
+            transition: all ease-in-out 0.3s;
         }
     }
     .menu-instance-item::before
@@ -47,5 +62,23 @@
     .menu-instance-item.ivu-menu-item-selected::before
     {
         background-color: #2D52F2;
+    }
+}
+.menu-instance.collapsed-menu
+{
+    .sub-title
+    {
+        .label
+        {
+            opacity: 0;
+        }
+    }
+
+    .menu-instance-item
+    {
+        span
+        {
+            opacity: 0;
+        }
     }
 }

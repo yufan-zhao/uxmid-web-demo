@@ -1,7 +1,7 @@
 import { IWorkbench, ApplicationContextBase, Exception, IEventProvider, Map } from "uxmid-core";
 import Router, { Route } from "vue-router";
 
-import { IApplicationSettings, IApplicationCredential, IApplicationMenu, IHttpApi, AbstractHttpUrl } from "src/models";
+import { IApplicationSettings, IApplicationCredential, IApplicationMenu, IHttpApi } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import Workbench from "./workbench";
 
@@ -13,7 +13,7 @@ export default class ApplicationContext extends ApplicationContextBase
 {
     private _settings: IApplicationSettings;
     private _router: Router;
-    private _httpApiMap: Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>;
+    private _httpApiMap: Map<APPLICATION_PLATFORM, IHttpApi>;
     private _credentialMap: Map<APPLICATION_PLATFORM, IApplicationCredential>;
     private _menus: Array<IApplicationMenu>;
 
@@ -61,9 +61,9 @@ export default class ApplicationContext extends ApplicationContextBase
     /**
      * 获取当前应用的http请求对象Map
      * @public
-     * @returns {Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>} http请求Map
+     * @returns {Map<APPLICATION_PLATFORM, IHttpApi} http请求Map
      */
-    public get httpApiMap(): Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>
+    public get httpApiMap(): Map<APPLICATION_PLATFORM, IHttpApi>
     {
         return this._httpApiMap;
     }
@@ -72,7 +72,7 @@ export default class ApplicationContext extends ApplicationContextBase
      * 设置当前应用的http请求对象Map
      * @public
      */
-    public set httpApiMap(value: Map<APPLICATION_PLATFORM, IHttpApi<AbstractHttpUrl>>)
+    public set httpApiMap(value: Map<APPLICATION_PLATFORM, IHttpApi>)
     {
         this._httpApiMap = value;
     }

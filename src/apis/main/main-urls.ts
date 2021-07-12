@@ -39,5 +39,5 @@ export default
     dictDetail       : "/dataDictionary/getDetailById",
     dictInsert       : "/dataDictionary/save",
     dictUpdate       : "/dataDictionary/updateById",
-    dictDelete       : "/dataDictionary/virtualRemoveById",
+    dictDelete       : "/dataDictionary/virtualRemoveById"
 };

@@ -4,7 +4,7 @@ var applicationSettings =
     fullName: "web项目全称",
 
     // 项目简称
-    abbreviation: "web项目简称",
+    abbreviation: "项目简称",
 
     // 项目版本
     version: "web项目版本",

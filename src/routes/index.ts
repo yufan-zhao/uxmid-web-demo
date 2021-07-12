@@ -19,7 +19,7 @@ const routes: Array<RouteConfig> =
         meta:
         {
             label: "示例代码",
-            icon: ""
+            icon: "iconicon_shouye"
         },
         children: [...demo]
     },
@@ -30,7 +30,7 @@ const routes: Array<RouteConfig> =
         meta:
         {
             label: "工作台",
-            icon: "",
+            icon: "iconicon_board",
             hideTab: true
         },
         children: [...workbench]
@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> =
         meta:
         {
             label: "系统设置",
-            icon: ""
+            icon: "iconicon_xitongguanli"
         },
         children: [...system]
     }

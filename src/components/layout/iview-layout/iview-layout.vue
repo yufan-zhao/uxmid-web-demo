@@ -4,6 +4,7 @@
             <i-sider breakpoint="md" collapsible :collapsed-width="78" :width="192" v-model="isCollapsed">
                 <i-menu :active-name="currentMenuLabel" theme="dark" width="auto" class="menu-instance" :class="menuitemClasses" @on-select="onMenuSelect">
                     <div class="sub-title">
+                        <img class="logo-img" src="~assets/application/logo.png" alt="logo">
                         <span class="label">{{subTitle}}</span>
                     </div>
                     <i-menu-item
@@ -12,7 +13,7 @@
                         :key="i"
                         :name="item.label"
                     >
-                        <i-icon type="ios-navigate"></i-icon>
+                        <i class="iconfont" :class="[item.icon]"></i>
                         <span>{{item.label}}</span>
                     </i-menu-item>
                 </i-menu>
@@ -24,7 +25,7 @@
                 <i-header class="layout-header-bar">
                     <div class="header-bar-content">
                         <div class="left">
-                            <div class="switch-btn">
+                            <div class="switch-btn" :class="{collapsed: isCollapsed}">
                                 <svg
                                     t="1625109564103"
                                     class="icon-svg"
@@ -36,7 +37,7 @@
                                     height="200"
                                     @click="isCollapsed = !isCollapsed"
                                 >
-                                    <path fill="#70737B" d="M64.863 89.086v84.283h898.993V89.086H64.863z m322.252 338.777h576.741v-84.278H387.115v84.278z m0 252.844h576.741v-84.283H387.115v84.283zM64.863 935.202h898.993v-84.283H64.863v84.283z m241.871-592.225L64.429 512.12l242.305 169.143V342.977z" p-id="1818"></path>
+                                    <path fill="#333" d="M64.863 89.086v84.283h898.993V89.086H64.863z m322.252 338.777h576.741v-84.278H387.115v84.278z m0 252.844h576.741v-84.283H387.115v84.283zM64.863 935.202h898.993v-84.283H64.863v84.283z m241.871-592.225L64.429 512.12l242.305 169.143V342.977z" p-id="1818"></path>
                                 </svg>
                             </div>
                             <span class="split-line"></span>

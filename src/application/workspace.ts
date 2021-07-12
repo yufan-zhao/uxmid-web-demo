@@ -14,6 +14,7 @@ import { routes } from "src/routes";
 import globalComponents from "src/components";
 import "src/styles/index.less";
 import { RouteUtils } from "src/common/utils";
+import filters from "src/common/filters";
 
 /**
  * 工作空间实现类
@@ -68,6 +69,9 @@ export default class Workspace extends View
         // 初始化系统及自定义组件
         Workspace.initializeComponent(context);
 
+        // 初始化Vue过滤器
+        Workspace.initializeFilters(context);
+
         let options =
         {
             el: "#workspace",
@@ -117,5 +121,18 @@ export default class Workspace extends View
 
         dayjs.locale("zh-cn");
         dayjs.extend(relativeTime);
+    }
+
+    /**
+     * 初始化所有全局 Vue 过滤器。
+     * @param  {ApplicationContext} context 应用程序上下文实例。
+     * @returns {void} void
+     */
+    public static initializeFilters(context: ApplicationContext): void
+    {
+        Object.keys(filters).forEach(key =>
+        {
+            Vue.filter(key, filters[key]);
+        });
     }
 }

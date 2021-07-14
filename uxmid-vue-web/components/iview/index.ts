@@ -1,6 +1,6 @@
 import { Type } from "uxmid-core";
 import ViewUI from "view-design";
-import "view-design/dist/styles/iview.css";
+// import "view-design/dist/styles/iview.css";
 import "../../styles/iview-dashboard/index.less";
 
 const iview: any = ViewUI;

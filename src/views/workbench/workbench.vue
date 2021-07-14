@@ -1,6 +1,7 @@
 <template>
     <div class="workbench-view">
         <h1>Workbench</h1>
+        <i-button type="primary">Test</i-button>
     </div>
 </template>
 

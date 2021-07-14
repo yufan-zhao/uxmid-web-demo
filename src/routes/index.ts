@@ -3,8 +3,10 @@ import workbench from "./modules/workbench";
 import system from "./modules/system";
 import demo from "./modules/demo";
 
-const dashboard = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/dashboard")), "dashboard"); // iview dashboard后台管理系统布局组合组件
-const login = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/login/login")), "login");
+// const dashboard = import.meta.glob("/src/views/dashboard.vue"); // iview dashboard后台管理系统布局组合组件
+// const login = import.meta.glob("/src/views/login/login.vue");
+const dashboard = () => import("src/views/dashboard.vue");
+const login = () => import("src/views/login/login.vue");
 
 const routes: Array<RouteConfig> =
 [

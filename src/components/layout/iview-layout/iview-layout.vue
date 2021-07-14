@@ -4,7 +4,7 @@
             <i-sider breakpoint="md" collapsible :collapsed-width="78" :width="192" v-model="isCollapsed">
                 <i-menu :active-name="currentMenuLabel" theme="dark" width="auto" class="menu-instance" :class="menuitemClasses" @on-select="onMenuSelect">
                     <div class="sub-title">
-                        <img class="logo-img" src="~assets/application/logo.png" alt="logo">
+                        <img class="logo-img" src="src/assets/application/logo.png" alt="logo">
                         <span class="label">{{subTitle}}</span>
                     </div>
                     <i-menu-item
@@ -279,7 +279,7 @@ export default class IViewLayout extends Component
     height: 100%;
     overflow-y: auto;
 
-    @{deep}>.ivu-layout
+    >:deep(.ivu-layout)
     {
         height: 100%;
     }

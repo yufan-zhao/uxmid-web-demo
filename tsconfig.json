@@ -13,7 +13,7 @@
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "types": ["webpack-env"],
+        // "types": ["webpack-env"],
         "paths": {
             "uxmid-vue-web/*": ["./uxmid-vue-web/*"],
             "src/*": ["./src/*"],

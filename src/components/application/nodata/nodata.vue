@@ -5,7 +5,7 @@
     </div>
 </template>
 <script lang="ts">
-import { View, component, config } from "uxmid-web";
+import { View, component, config } from "uxmid-vue-web";
 
 @component
 export default class Nodata extends View
@@ -15,7 +15,7 @@ export default class Nodata extends View
     /**
      * 图片
      */
-    protected src = require("assets/application/none-data.png");
+    protected src = require("src/assets/application/none-data.png");
 }
 </script>
 <style lang="less">

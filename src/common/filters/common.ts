@@ -23,9 +23,9 @@ export function urlTimetamp(url: string): string
 export function imagePath(url: string, type?): string
 {
     return (url && ApplicationContext.current.settings.mainOriginUrl + ApplicationContext.current.settings.mainPrefix + url)
-    || (type === "user" && require("assets/application/default-user.jpg"))
-    || (type === "woman" && require("assets/application/default-girl.png"))
-    || (type === "man" && require("assets/application/default-boy.png"));
+    || (type === "user" && require("src/assets/application/default-user.jpg"))
+    || (type === "woman" && require("src/assets/application/default-girl.png"))
+    || (type === "man" && require("src/assets/application/default-boy.png"));
 }
 
 /**

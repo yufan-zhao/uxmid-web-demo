@@ -1,7 +1,7 @@
 import { RouteConfig } from "vue-router";
 
-const switchTable = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/demo/switch-table/manage")), "demo");
-const paginTable = (resolve: any) => (<any>require).ensure([], () => resolve(require("views/demo/pagin-table/manage")), "demo");
+const switchTable = import.meta.glob("/src/views/demo/switch-table/manage.vue");
+const paginTable = import.meta.glob("/src/views/demo/pagin-table/manage.vue");
 
 const children: Array<RouteConfig> =
 [

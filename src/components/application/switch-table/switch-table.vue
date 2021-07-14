@@ -50,11 +50,11 @@
 </template>
 
 <script lang="ts">
-import { component, View, config, mixins } from "uxmid-vue-web";
+import { vueComponent, View, config, mixins } from "uxmid-vue-web";
 import { Pagin } from "src/common/mixins";
 import { IPaginFilterModel } from "src/models";
 
-@component
+@vueComponent
 export default class SwitchTable extends mixins(Pagin)
 {
     /**

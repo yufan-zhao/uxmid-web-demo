@@ -121,13 +121,13 @@
 
 <script lang="ts">
 import { Application } from "uxmid-core";
-import { component, View } from "uxmid-vue-web";
+import { vueComponent, View } from "uxmid-vue-web";
 import { AuthService } from "src/services";
 import { service } from "src/common/decorator";
 import { StringUtils, Patterns, Messages } from "src/common/utils";
 import { ApplicationContext } from "../../application";
 
-@component
+@vueComponent
 export default class Login extends View
 {
     /**
@@ -593,12 +593,12 @@ export default class Login extends View
             form
             {
 
-                :deep(.form-main)
+                .form-main
                 {
                     margin-bottom: 20px;
                     box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.06);
 
-                    .ivu-form-item
+                    @{deep}.ivu-form-item
                     {
                         position: relative;
                         margin-bottom: 0;
@@ -751,7 +751,7 @@ export default class Login extends View
                     }
                 }
 
-                :deep(.ivu-form-item)
+                @{deep}.ivu-form-item
                 {
                     position: relative;
 

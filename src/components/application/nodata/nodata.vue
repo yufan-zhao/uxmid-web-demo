@@ -5,9 +5,9 @@
     </div>
 </template>
 <script lang="ts">
-import { View, component, config } from "uxmid-vue-web";
+import { View, vueComponent, config } from "uxmid-vue-web";
 
-@component
+@vueComponent
 export default class Nodata extends View
 {
     @config({required: false, type: String, default: "暂无数据"})

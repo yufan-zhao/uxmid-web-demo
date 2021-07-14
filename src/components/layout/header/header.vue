@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Application } from "uxmid-core";
-import { component, View, config, Component, watch } from "uxmid-vue-web";
+import { vueComponent, View, config, Component, watch } from "uxmid-vue-web";
 import CommonView from "src/views/common-view";
 import { ApplicationContext } from "src/application";
 import { IApplicationCredential } from "src/models";
@@ -34,7 +34,7 @@ import { IApplicationCredential } from "src/models";
  * @class
  * @version 1.0.0
  */
-@component
+@vueComponent
 export default class Header extends CommonView
 {
     /**

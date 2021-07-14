@@ -23,9 +23,9 @@
 </template>
 
 <script lang="ts">
-import { component, View, config, watch } from "uxmid-vue-web";
+import { vueComponent, View, config, watch } from "uxmid-vue-web";
 
-@component
+@vueComponent
 export default class PageList extends View
 {
     /**

@@ -11,7 +11,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import ApplicationContext from "./context";
 import { routes } from "src/routes";
-// import globalComponents from "src/components";
+import globalComponents from "src/components";
 import "src/styles/index.less";
 import { RouteUtils } from "src/common/utils";
 import filters from "src/common/filters";
@@ -117,7 +117,7 @@ export default class Workspace extends View
     {
         // Vue.use(ViewUI);
         Vue.use(components);
-        // Vue.use(globalComponents);
+        Vue.use(globalComponents);
 
         dayjs.locale("zh-cn");
         dayjs.extend(relativeTime);

@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { component, config, Component } from "uxmid-vue-web";
+import { vueComponent, config, Component } from "uxmid-vue-web";
 import { ExtendUtils } from "src/common/utils";
 
 /**
@@ -70,7 +70,7 @@ import { ExtendUtils } from "src/common/utils";
  * @class
  * @version 1.0.0
  */
-@component
+@vueComponent
 export default class TableBox extends Component
 {
     /**

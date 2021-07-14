@@ -1,4 +1,4 @@
-import { component, Component } from "uxmid-vue-web";
+import { vueComponent, Component } from "uxmid-vue-web";
 import { IHttpResponse, IPaginFilterModel } from "src/models";
 
 /**
@@ -6,7 +6,7 @@ import { IHttpResponse, IPaginFilterModel } from "src/models";
  * 提供表格分页的基本封装
  * @class
  */
-@component
+@vueComponent
 export default class Pagin extends Component
 {
     /**

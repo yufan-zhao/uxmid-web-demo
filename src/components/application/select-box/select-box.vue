@@ -20,14 +20,14 @@
 </template>
 
 <script lang="ts">
-import { component, Component, config } from "uxmid-vue-web";
+import { vueComponent, Component, config } from "uxmid-vue-web";
 
 /**
  * 表示一个页面头部组件。
  * @class
  * @version 1.0.0
  */
-@component
+@vueComponent
 export default class SelectBox extends Component
 {
     /**

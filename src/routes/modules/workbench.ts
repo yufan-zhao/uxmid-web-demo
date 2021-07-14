@@ -1,6 +1,6 @@
 import { RouteConfig } from "vue-router";
 
-const workbench = import.meta.glob("/src/views/workbench/workbench.vue");
+const workbench = () => import("/src/views/workbench/workbench.vue");
 
 const children: Array<RouteConfig> =
 [

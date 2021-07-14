@@ -1,7 +1,7 @@
 import { RouteConfig } from "vue-router";
 
-const dict = import.meta.glob("/src/views/system/dict.vue");
-const organization = import.meta.glob("/src/views/system/organization.vue");
+const dict = () => import("/src/views/system/dict.vue");
+const organization = () => import("/src/views/system/organization.vue");
 
 const children: Array<RouteConfig> =
 [

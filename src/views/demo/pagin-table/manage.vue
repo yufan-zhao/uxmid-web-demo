@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-vue-web";
 import { IHttpResponse, IPaginFilterModel } from "src/models";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";
 
-@component
+@vueComponent
 export default class ManageView extends View
 {
     @service("TestPaginTableService")

@@ -9,14 +9,14 @@
 </template>
 
 <script lang="ts">
-import { component, Component } from "uxmid-vue-web";
+import { vueComponent, Component } from "uxmid-vue-web";
 
 /**
  * 表示一个包含头部和侧边条的布局母版。
  * @class
  * @version 1.0.0
  */
-@component
+@vueComponent
 export default class GenericLayout extends Component
 {
 }

@@ -8,15 +8,15 @@
  * Copyright (C) 2010-2017 UXmid Inc. All rights reserved. 
  */
 
-import component, { mixins } from "vue-class-component";
+import Component, { mixins } from "vue-class-component";
 import { Prop as config, Prop as prop, Model as model, Watch as watch, Inject as inject, Provide as provide } from "vue-property-decorator";
 
 // 注册路由相关钩子函数
-component.registerHooks
+Component.registerHooks
 ([
     "beforeRouteEnter",
     "beforeRouteLeave",
     "beforeRouteUpdate"
 ]);
 
-export { component, mixins, config, prop, model, watch, inject, provide };
+export { Component as vueComponent, mixins, config, prop, model, watch, inject, provide };

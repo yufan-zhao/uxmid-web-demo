@@ -11,16 +11,16 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-vue-web";
 
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";
 
 /**
  * 后台管理系统iview dashboard基础布局组件
- * @component
+ * @vueComponent
  */
-@component
+@vueComponent
 export default class DashboardView extends View
 {
     /**

@@ -6,9 +6,9 @@
 </template>
 
 <script lang="ts">
-import { component, View, config } from "uxmid-vue-web";
+import { vueComponent, View, config } from "uxmid-vue-web";
 
-@component
+@vueComponent
 export default class TableStyleSwitch extends View
 {
     /**

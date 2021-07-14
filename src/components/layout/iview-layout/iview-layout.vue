@@ -70,12 +70,12 @@
 </template>
 
 <script lang="ts">
-import { component, Component, config, watch } from "uxmid-vue-web";
+import { vueComponent, Component, config, watch } from "uxmid-vue-web";
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";
 import { RouteUtils } from "src/common/utils";
 
-@component
+@vueComponent
 export default class IViewLayout extends Component
 {
     /**
@@ -279,7 +279,7 @@ export default class IViewLayout extends Component
     height: 100%;
     overflow-y: auto;
 
-    >:deep(.ivu-layout)
+    >.ivu-layout
     {
         height: 100%;
     }

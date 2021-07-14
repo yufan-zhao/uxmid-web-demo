@@ -53,14 +53,14 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-vue-web";
 import ManageDetail from "./detail.vue";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";
 import { ExtendUtils } from "src/common/utils";
 import InsertUpdateModal from "./_components/insert-update-modal.vue";
 
-@component({
+@vueComponent({
     components:
     {
         "u-detail": ManageDetail,

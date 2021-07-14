@@ -29,9 +29,9 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch, config } from "uxmid-vue-web";
+import { vueComponent, View, watch, config } from "uxmid-vue-web";
 
-@component
+@vueComponent
 export default class InfoView extends View
 {
 
@@ -39,5 +39,5 @@ export default class InfoView extends View
 </script>
 
 <style lang="less" scoped>
-@import "~styles/business/sub-detail";
+@import "src/styles/business/sub-detail";
 </style>

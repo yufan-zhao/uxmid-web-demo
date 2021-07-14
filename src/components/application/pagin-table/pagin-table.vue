@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-import { component, watch, config, mixins } from "uxmid-vue-web";
+import { vueComponent, watch, config, mixins } from "uxmid-vue-web";
 import { Pagin } from "src/common/mixins";
 import { IPaginFilterModel } from "src/models";
 
-@component
+@vueComponent
 export default class PaginTable extends mixins(Pagin)
 {
     /**

@@ -23,7 +23,7 @@ export default defineConfig({
             {
                 modifyVars:
                 {
-                    hack: `true; @import (reference) "${path.resolve("src/styles/application/config.less")}";`
+                    hack: `true; @import (reference) "${path.resolve("src/styles/index.less")}";`
                 },
                 javascriptEnabled: true
             }

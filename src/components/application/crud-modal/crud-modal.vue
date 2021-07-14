@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts">
-import { component, Component, config } from "uxmid-vue-web";
+import { vueComponent, Component, config } from "uxmid-vue-web";
 
 /**
  * 配合switch-table的新增-编辑弹层
  * @class
  */
-@component
+@vueComponent
 export default class CrudModal extends Component
 {
     /**

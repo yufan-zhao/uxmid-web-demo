@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts">
-import { component, View, watch, config } from "uxmid-vue-web";
+import { vueComponent, View, watch, config } from "uxmid-vue-web";
 import SubInfo from "./subs/info.vue";
 
-@component({
+@vueComponent({
     components:
     {
         "u-info": SubInfo
@@ -60,5 +60,5 @@ export default class ManageDetailView extends View
 </script>
 
 <style lang="less" scoped>
-@import "~styles/business/manage-detail";
+@import "src/styles/business/manage-detail";
 </style>

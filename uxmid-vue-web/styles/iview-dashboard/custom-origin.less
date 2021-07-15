@@ -1,5 +1,11 @@
+@import "view-design/src/styles/color/colors";
+
+// Prefix
+@css-prefix             : ivu-;
+@css-prefix-iconfont    : ivu-icon;
+
 // Color
-@primary-color          : #2D52F2;
+@primary-color          : #2d8cf0;
 @info-color             : #2db7f5;
 @success-color          : #19be6b;
 @processing-color       : @primary-color;
@@ -18,11 +24,11 @@
 
 // Base
 @body-background        : #fff;
-@vueComponent-background   : #fff;
+@component-background   : #fff;
 @font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 @code-family            : Consolas,Menlo,Courier,monospace;
 @title-color            : #17233d;
-@text-color             : #182334;
+@text-color             : #515a6e;
 @text-color-secondary: fade(@black, 45%);
 @heading-color: fade(#000, 85%);
 @heading-color-dark: fade(@white, 100%);
@@ -42,7 +48,7 @@
 @padding-xs: 8px; // small items
 
 // Border color
-@border-color-base      : #D5DBDE;  // outside
+@border-color-base      : #dcdee2;  // outside
 @border-color-split     : #e8eaec;  // inside
 @border-width-base      : 1px;            // width of the border for a component
 @border-style-base      : solid;          // style of a components border
@@ -56,8 +62,8 @@
 @table-td-stripe-bg           : #f8f8f9;
 @table-td-hover-bg            : #ebf7ff;
 @table-td-highlight-bg        : #ebf7ff;
-@menu-dark-title              : #081324;
-@menu-dark-active-bg          : #040B16;
+@menu-dark-title              : #515a6e;
+@menu-dark-active-bg          : #363e4f;
 @menu-dark-subsidiary-color   : rgba(255,255,255,.7);
 @menu-dark-group-title-color  : rgba(255,255,255,.36);
 @date-picker-cell-hover-bg    : #e1f0fe;
@@ -72,7 +78,7 @@
 @shadow-right           : 1px 0 6px @shadow-color;
 
 // Button
-@btn-height-base        : 34px;
+@btn-height-base        : 32px;
 @btn-height-large       : 40px;
 @btn-height-small       : 24px;
 
@@ -87,7 +93,7 @@
 @btn-font-size          : @font-size-base;
 @btn-font-size-large    : @font-size-large;
 @btn-font-size-small    : @font-size-base;
-@btn-border-radius      : 0;
+@btn-border-radius      : 4px;
 @btn-border-radius-small: 3px;
 @btn-group-border       : shade(@primary-color, 5%);
 
@@ -118,12 +124,12 @@
 @grid-columns                : 24;
 @grid-gutter-width           : 0;
 @layout-body-background      : #f5f7f9;
-@layout-header-background    : #ffffff;
-@layout-header-height        : 69px;
-@layout-header-padding       : 0 30px 0 0;
+@layout-header-background    : #515a6e;
+@layout-header-height        : 64px;
+@layout-header-padding       : 0 50px;
 @layout-footer-padding       : 24px 50px;
 @layout-footer-background    : @layout-body-background;
-@layout-sider-background     : #081324;
+@layout-sider-background     : @layout-header-background;
 @layout-trigger-height       : 48px;
 @layout-trigger-color        : #fff;
 @layout-zero-trigger-width   : 36px;
@@ -133,7 +139,7 @@
 @legend-color           : #999;
 
 // Input
-@input-height-base           : 34px;
+@input-height-base           : 32px;
 @input-height-large          : 40px;
 @input-height-small          : 24px;
 

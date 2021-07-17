@@ -33,5 +33,23 @@ export default defineConfig({
     [
         // vuePlugin(),
         createVuePlugin()
-    ]
+    ],
+    build:
+    {
+        rollupOptions:
+        {
+            output:
+            {
+                manualChunks:
+                {
+                    vendor: ["vue", "uxmid-core", "vue-router", "vuex", "axios", "dayjs", "md5", "qs", "vue-class-component", "vue-property-decorator", "vuex-class"],
+                    iview: ["view-design"]
+                }
+            }
+        }
+    }
+    // optimizeDeps:
+    // {
+    //     entries: "src/vendor.ts"
+    // }
 });

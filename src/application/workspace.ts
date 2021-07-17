@@ -5,6 +5,7 @@ import Router from "vue-router";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import relativeTime from "dayjs/plugin/relativeTime";
+import AMap from "flagwind-amap";
 
 // import ViewUI from "view-design";
 // import "view-design/dist/styles/iview.css";
@@ -33,16 +34,6 @@ export default class Workspace extends View
     {
         return this._workbench;
     }
-
-    /**
-     * 获取全局消息框实例。
-     * @property
-     * @returns Message
-     */
-    // public get message(): Message
-    // {
-    //     return this.$message;
-    // }
 
     /**
      * 初始化工作空间的新实例。
@@ -121,6 +112,35 @@ export default class Workspace extends View
 
         dayjs.locale("zh-cn");
         dayjs.extend(relativeTime);
+
+        // 初始化高德地图配置
+        AMap.init
+        ({
+            key: context.settings.amapSetting.key,
+            version: "1.4.14",
+            uiVersion: "1.0",
+            plugins:
+            [
+                "Autocomplete",
+                "PlaceSearch",
+                "Scale",
+                "OverView",
+                "ToolBar",
+                "MapType",
+                "CircleEditor",
+                "Geocoder",
+                "PositionPicker",
+                "AMap.MouseTool",
+                "AMap.PolyEditor",
+                "AMap.MarkerClusterer",
+                "Map3D",
+                "AMap.Object3DLayer",
+                "AMap.DistrictSearch"
+            ]
+        });
+
+        // 注册高德地图组件
+        Vue.use(AMap);
     }
 
     /**

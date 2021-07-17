@@ -9,7 +9,11 @@ enum APPLICATION_PLATFORM
     /**
      * 主平台
      */
-    MAIN = 0
+    MAIN = 0,
+    /**
+     * 鉴权平台
+     */
+    AUTH = 1,
 }
 Type.setMetadata(APPLICATION_PLATFORM,
 {
@@ -17,6 +21,11 @@ Type.setMetadata(APPLICATION_PLATFORM,
     {
         alias: "主平台",
         description: "默认一个web系统只对接一个后端系统"
+    },
+    AUTH:
+    {
+        alias: "鉴权平台",
+        description: "默认一个web系统只对接一个鉴权平台"
     }
 });
 

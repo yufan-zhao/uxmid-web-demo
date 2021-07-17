@@ -43,13 +43,24 @@ export default defineConfig({
                 manualChunks:
                 {
                     vendor: ["vue", "uxmid-core", "vue-router", "vuex", "axios", "dayjs", "md5", "qs", "vue-class-component", "vue-property-decorator", "vuex-class"],
+                    flagwind: ["flagwind-amap", "flagwind-core", "flagwind-core", "iview"],
                     iview: ["view-design"]
                 }
             }
         }
+    },
+    server:
+    {
+        proxy:
+        {
+            "/guobaoSystem":
+            {
+                target: "http://47.107.50.215:9015"
+            },
+            "/auth2server":
+            {
+                target: "http://47.107.50.215:9015"
+            }
+        }
     }
-    // optimizeDeps:
-    // {
-    //     entries: "src/vendor.ts"
-    // }
 });

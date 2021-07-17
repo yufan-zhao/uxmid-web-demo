@@ -1,7 +1,7 @@
 import { IWorkbench, ApplicationContextBase, Exception, IEventProvider, Map } from "uxmid-core";
 import Router, { Route } from "vue-router";
 
-import { IApplicationSettings, IApplicationCredential, IApplicationMenu, IHttpApi } from "src/models";
+import { IApplicationSettings, IApplicationCredential, IApplicationMenu, IHttpApi, IHttpResponse, IHttpRequest } from "src/models";
 import { APPLICATION_PLATFORM } from "src/enums";
 import Workbench from "./workbench";
 

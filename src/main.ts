@@ -6,8 +6,8 @@
  */
 
 import "@babel/polyfill";
+import { ApplicationSettings, ApplicationContext } from "src/application";
 import { Application } from "uxmid-core";
-import ApplicationContext from "./application/context";
 
 // 获取应用上下文
 const context = ApplicationContext.current;

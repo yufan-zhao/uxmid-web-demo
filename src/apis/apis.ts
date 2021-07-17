@@ -39,11 +39,14 @@ export default abstract class Apis implements IHttpApi
         // 主动设置凭证
         this.setAuthorizationHeader(requestConfig);
 
+        // 设置全局请求header
+        requestConfig.headers["source-of-request"] = "web";
+
         return HttpClient.instance[method](requestConfig);
     }
 
     /**
-     * 自定义设置请求头凭证
+     * 自定义设置请求头凭证抽象方法
      * @param headers 请求头对象 
      * @returns {void}
      */

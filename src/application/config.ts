@@ -1,4 +1,6 @@
-const applicationSettings =
+import { IApplicationSettings } from "src/models";
+
+const applicationSettings: IApplicationSettings =
 {
     // 项目全称
     fullName: "web项目全称",

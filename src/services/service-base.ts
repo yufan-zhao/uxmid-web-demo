@@ -2,7 +2,7 @@ import { Application } from "uxmid-core";
 
 import { APPLICATION_PLATFORM } from "src/enums";
 import { ApplicationContext } from "src/application";
-import { MainApis } from "src/apis";
+import { MainApis, AuthApis } from "src/apis";
 
 /**
  * 业务服务基类。
@@ -31,5 +31,16 @@ export default abstract class ServiceBase
     protected get mainApis(): MainApis
     {
         return <MainApis>this.applicationContext.httpApiMap.get(APPLICATION_PLATFORM.MAIN);
+    }
+
+    /**
+     * 获取当前应用的鉴权接口实例
+     * @protected
+     * @property
+     * @returns {AuthApis} 鉴权接口实例
+     */
+    protected get authApis(): AuthApis
+    {
+        return <AuthApis>this.applicationContext.httpApiMap.get(APPLICATION_PLATFORM.AUTH);
     }
 }

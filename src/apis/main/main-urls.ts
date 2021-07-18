@@ -1,7 +1,6 @@
 export default
 {
     // 认证接口
-    login            : "/oauth/token",                                           // 登录
     getVerifyImg     : "/free/getVerifyImg",                                     // 登录页请求图形验证码
     findPwdMsgCode   : "/users/getPwdSendMsg/{userName}/{mobile}",               // 找回密码短信验证码
     findPassword     : "/users/retrievePwd",                                     // 找回密码

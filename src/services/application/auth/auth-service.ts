@@ -1,6 +1,6 @@
 import { Injectable, BroadcastManager, Broadcast, Map, Logger } from "uxmid-core";
 
-import ServiceBase from "../service-base";
+import ServiceBase from "../../service-base";
 import { IHttpResponse, IHttpRequest } from "src/models";
 import { BroadcastChannels } from "src/broadcasts";
 
@@ -32,7 +32,7 @@ export default class AuthService extends ServiceBase
         };
 
         Logger.debug("[UserService] login", "请求报文：", loginReq);
-        const res = await this.mainApis.login(loginReq);
+        const res = await this.authApis.login(loginReq);
         Logger.debug("[UserService] login", "返回报文：", res);
 
         const loginMap = new Map<string, any>();

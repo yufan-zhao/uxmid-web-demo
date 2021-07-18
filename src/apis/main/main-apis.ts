@@ -6,7 +6,6 @@ import MainUrls from "./main-urls";
 export default class MainApis extends Apis
 {
     // 认证接口
-    public login            = (options?: IHttpRequest) => this.send(MainUrls.login, options, "post");                         // 登录
     public getVerifyImg     = (options?: IHttpRequest) => this.send(MainUrls.getVerifyImg, options, "post");                  // 登录页请求图形验证码
     public findPwdMsgCode   = (options?: IHttpRequest) => this.send(MainUrls.findPwdMsgCode, options, "post");                // 找回密码短信验证码
     public findPassword     = (options?: IHttpRequest) => this.send(MainUrls.findPassword, options, "post");                  // 找回密码

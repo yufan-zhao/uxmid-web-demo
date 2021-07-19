@@ -1,10 +1,3 @@
-/*!
- * Authors:
- *      yyhugh
- * 
- * Copyright (C) 2020-present O&M Cloud Inc. All rights reserved.
- */
-
 import * as services from "src/services";
 import ServiceBase from "src/services/service-base";
 

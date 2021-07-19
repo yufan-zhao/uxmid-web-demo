@@ -1,10 +1,3 @@
-/*!
- * Authors:
- *      yyhugh
- * 
- * Copyright (C) 2020-present O&M Cloud Inc. All rights reserved.
- */
-
 import "@babel/polyfill";
 import { ApplicationSettings, ApplicationContext } from "src/application";
 import { Application } from "uxmid-core";

@@ -1,10 +1,3 @@
-/*!
- * Authors:
- *      yyhugh
- * 
- * Copyright (C) 2020-present O&M Cloud Inc. All rights reserved.
- */
-
 import * as repositories from "src/repository";
 import BaseRepository from "src/repository/base-repository";
 

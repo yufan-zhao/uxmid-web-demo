@@ -7,3 +7,5 @@ export { default as uPageList } from "./page-list";
 export { default as uPageContent } from "./page-content";
 export { default as uCrudModal } from "./crud-modal";
 export { default as uNodata } from "./nodata";
+export { default as uUploadBase } from "./upload-base";
+export { default as uUploadImage } from "./upload-image";

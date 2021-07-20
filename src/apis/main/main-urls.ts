@@ -5,6 +5,10 @@ export default
     findPwdMsgCode   : "/users/getPwdSendMsg/{userName}/{mobile}",               // 找回密码短信验证码
     findPassword     : "/users/retrievePwd",                                     // 找回密码
 
+    // 上传接口
+    fileUpload       : "/commonFile/upload",                                     // 上传文件 批量
+    fileUploadSingle : "/commonFile/uploadSingle",                               // 上传文件 单个
+
     // 权限接口
     permissionList   : "/permission/list",
     permissionDetail : "/permission/getDetailById",

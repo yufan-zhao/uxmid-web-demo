@@ -10,6 +10,10 @@ export default class MainApis extends Apis
     public findPwdMsgCode   = (options?: IHttpRequest) => this.send(MainUrls.findPwdMsgCode, options, "post");                // 找回密码短信验证码
     public findPassword     = (options?: IHttpRequest) => this.send(MainUrls.findPassword, options, "post");                  // 找回密码
 
+    // 上传接口
+    public fileUpload       = (options?: IHttpRequest) => this.send(MainUrls.fileUpload, options, "upload");                  // 上传文件 批量
+    public fileUploadSingle = (options?: IHttpRequest) => this.send(MainUrls.fileUploadSingle, options, "upload");            // 上传文件 单个
+
     // 权限接口
     public permissionList   = (options?: IHttpRequest) => this.send(MainUrls.permissionList, options, "get");                 // 列表
     public permissionDetail = (options?: IHttpRequest) => this.send(MainUrls.permissionDetail, options, "get");               // 详情

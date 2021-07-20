@@ -266,7 +266,6 @@ export default class HttpClient
 
         // 构造url(支持请求中自定义headers)
         let requestHeader = Type.isUndefined(request.headers) ? this.options.headers : Object.assign({}, this.options.headers, request.headers);
-        console.log("header: ", requestHeader);
 
         // 构造分页数据
         let requestQuerys = !Type.isUndefined(request.params) && request.params;

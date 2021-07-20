@@ -10,6 +10,12 @@
                 <i-button type="info">Upload</i-button>
             </i-upload>
         </div>
+        <div style="padding: 10px;">
+            <u-upload-image
+                v-model="images"
+            >
+            </u-upload-image>
+        </div>
     </div>
 </template>
 
@@ -23,6 +29,8 @@ export default class WorkbenchView extends View
 {
     @service("UploadService")
     private uploadService: UploadService;
+
+    protected images: Array<any> = [];
 
     protected beforeUpload(file: File)
     {

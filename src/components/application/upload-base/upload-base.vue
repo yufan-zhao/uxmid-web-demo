@@ -7,7 +7,7 @@
         :accept="accept"
         :format="format"
         :max-size="maxSize"
-        :before-upload="beforeUpload"
+        :before-upload="uploadAdapter"
         :on-progress="onProgress"
         :on-success="onSuccess"
         :on-error="onError"
@@ -26,6 +26,8 @@
 import { Type } from "uxmid-core";
 import { vueComponent, config, Component } from "uxmid-vue-web";
 import HttpClient from "src/common/http/http-client";
+import { ApplicationContext } from "src/application";
+import { UploadService } from "src/services";
 
 /**
  * 表示一个文件上传组件。
@@ -249,106 +251,178 @@ export default class FileUploadBase extends Component
         this.$upload.clearFiles();
     }
 
-    /**
-     * 当组件创建完毕时调用。
-     * @protected
-     * @override
-     * @returns void
-     */
-    protected mounted(): void
-    {
-        let $upload = this.$upload;
+    // /**
+    //  * 当组件创建完毕时调用。
+    //  * @protected
+    //  * @override
+    //  * @returns void
+    //  */
+    // protected mounted(): void
+    // {
+    //     let $upload = this.$upload;
 
-        // 替换 iview 的上传方法
-        if(!$upload.replaced)
-        {
-            $upload.post = this.post.bind(this);
+    //     // 替换 iview 的上传方法
+    //     if(!$upload.replaced)
+    //     {
+    //         $upload.post = this.post.bind(this);
             
-            $upload.replaced = true;
-        }
-    }
+    //         $upload.replaced = true;
+    //     }
+    // }
 
     /**
-     * 文件上传方法。
-     * @private
-     * @returns void
+     * 文件上传实际接口
+     * @protected
+     * @member
+     * @param arg1 input产生的文件对象 File | FileList
      */
-    private post(file: any)
+    protected uploadAdapter(arg1: File)
     {
         let $upload = this.$upload;
 
-        // check format
-        if($upload.format.length)
+        const uploadService = ApplicationContext.current.serviceFactory.default.resolve<UploadService>(UploadService);
+        if (arg1 instanceof File)
         {
-            const FILE_FORMAT = file.name.split(".").pop().toLocaleLowerCase();
-            const checked = $upload.format.some(item => item.toLocaleLowerCase() === FILE_FORMAT);
-
-            if(!checked)
+            // check format
+            if($upload.format.length)
             {
-                $upload.onFormatError(file, $upload.fileList);
-                
-                return false;
+                const FILE_FORMAT = arg1.name.split(".").pop().toLocaleLowerCase();
+                const checked = $upload.format.some(item => item.toLocaleLowerCase() === FILE_FORMAT);
+
+                if(!checked)
+                {
+                    $upload.onFormatError(arg1, $upload.fileList);
+                    
+                    return false;
+                }
             }
-        }
 
-        // check maxSize
-        // if($upload.maxSize)
-        // {
-        //     if(file.size > $upload.maxSize * 1024)
-        //     {
-        //         $upload.onExceededSize(file, $upload.fileList);
+            // 开始上传动画
+            this.loading = true;
 
-        //         return false;
-        //     }
-        // }
-
-        $upload.handleStart(file);
-
-        // 开始上传动画
-        this.loading = true;
-
-        // 开始上传
-        HttpClient.instance.upload
-        ({
-            url: this.action,
-
-            data: this.data,
-
-            files:
-            {
-                [this.name || file.name] : file
-            },
-
-            onUploadProgress: (e: any) =>
+            uploadService.blobUpload([arg1], (e: any) =>
             {
                 if(e.total > 0)
                 {
                     e.percent = e.loaded / e.total * 100;
                 }
 
-                $upload.handleProgress(e, file);
-            }
-        })
-        .then((result: any) =>
-        {
-            // 结束上传动画
-            this.loading = false;
-
-            if(!Type.isEmptyObject(this.onGetResult) && Type.isFunction(this.onGetResult))
+                if (typeof this.onProgress === "function")
+                {
+                    this.onProgress(e, arg1);
+                }
+            }).then(res =>
             {
-                this.onGetResult.call(this, result, this.index);
-            }
-
-            $upload.handleSuccess(result, file);
-        })
-        .catch((error: any) =>
+                // 结束上传动画
+                this.loading = false;
+                if (typeof this.onSuccess === "function")
+                {
+                    this.onSuccess();
+                }
+                if (typeof this.onGetResult === "function")
+                {
+                    console.log("base-upload");
+                    this.onGetResult.call(this, res, this.index);
+                }
+            }).catch(err =>
+            {
+                // 结束上传动画
+                this.loading = false;
+                if (typeof this.onError === "function")
+                {
+                    this.onError(err, arg1);
+                }
+            });
+        }
+        else
         {
-            // 结束上传动画
-            this.loading = false;
+            console.error("暂不支持该上传参数，请检查上传实现方法");
+        }
 
-            $upload.handleError(error, {}, file);
-        });
+        return false; // 主动打断iview上传组件上传，改用service中的上传方法
     }
+
+    // /**
+    //  * 文件上传方法。
+    //  * @private
+    //  * @returns void
+    //  */
+    // private post(file: any)
+    // {
+    //     let $upload = this.$upload;
+
+    //     // check format
+    //     if($upload.format.length)
+    //     {
+    //         const FILE_FORMAT = file.name.split(".").pop().toLocaleLowerCase();
+    //         const checked = $upload.format.some(item => item.toLocaleLowerCase() === FILE_FORMAT);
+
+    //         if(!checked)
+    //         {
+    //             $upload.onFormatError(file, $upload.fileList);
+                
+    //             return false;
+    //         }
+    //     }
+
+    //     // check maxSize
+    //     // if($upload.maxSize)
+    //     // {
+    //     //     if(file.size > $upload.maxSize * 1024)
+    //     //     {
+    //     //         $upload.onExceededSize(file, $upload.fileList);
+
+    //     //         return false;
+    //     //     }
+    //     // }
+
+    //     $upload.handleStart(file);
+
+    //     // 开始上传动画
+    //     this.loading = true;
+
+    //     // 开始上传
+    //     HttpClient.instance.upload
+    //     ({
+    //         url: this.action,
+
+    //         data: this.data,
+
+    //         files:
+    //         {
+    //             [this.name || file.name] : file
+    //         },
+
+    //         onUploadProgress: (e: any) =>
+    //         {
+    //             if(e.total > 0)
+    //             {
+    //                 e.percent = e.loaded / e.total * 100;
+    //             }
+
+    //             $upload.handleProgress(e, file);
+    //         }
+    //     })
+    //     .then((result: any) =>
+    //     {
+    //         // 结束上传动画
+    //         this.loading = false;
+
+    //         if(!Type.isEmptyObject(this.onGetResult) && Type.isFunction(this.onGetResult))
+    //         {
+    //             this.onGetResult.call(this, result, this.index);
+    //         }
+
+    //         $upload.handleSuccess(result, file);
+    //     })
+    //     .catch((error: any) =>
+    //     {
+    //         // 结束上传动画
+    //         this.loading = false;
+
+    //         $upload.handleError(error, {}, file);
+    //     });
+    // }
 }
 </script>
 

@@ -53,7 +53,7 @@ export default defineConfig({
     {
         proxy:
         {
-            "/guobaoSystem":
+            "/kaiyangSystem":
             {
                 target: "http://47.107.50.215:9015"
             },

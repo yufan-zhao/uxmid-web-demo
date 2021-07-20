@@ -12,7 +12,7 @@
                 <u-upload-base
                     :data="{type: 2}"
                     :show-upload-list="false"
-                    :action="uploadFileUrl"
+                    :action="''"
                     accept="image/*, video/*"
                     :format="['jpg', 'jpeg', 'png', 'gif', 'mp4', '3gp', 'avi', 'mpeg']"
                     :on-format-error="onFormatError"
@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { vueComponent, View, config } from "uxmid-vue-web";
-import { imagePath } from "src/common/utils/extend-utils";
+import { ExtendUtils } from "src/common/utils";
 import messages from "src/common/utils/message";
 
 /**
@@ -43,7 +43,7 @@ import messages from "src/common/utils/message";
 export default class ComponentUploadImage extends View
 {
     
-    private imagePath: any = imagePath;
+    protected imagePath: any = ExtendUtils.imagePath;
 
     /**
      * 上传图片文件地址
@@ -51,8 +51,8 @@ export default class ComponentUploadImage extends View
      * @protected
      * @returns string
      */
-    @config({type: String, default: ""})
-    protected uploadFileUrl: string;
+    // @config({type: String, default: ""})
+    // protected uploadFileUrl: string;
 
     /**
      * 上传图片文件地址
@@ -158,15 +158,17 @@ export default class ComponentUploadImage extends View
      * @param  {number} index 下标。
      * @returns void
      */
-    protected onGetFileResult(result: any, index: number): void {
-        if (result.content && result.content.id)
+    protected onGetFileResult(result: any, index: number): void
+    {
+        console.log("image-upload", result);
+        if (result.content && result.content.length > 0)
         {
 
             // 复制已有图片列表
             let uploadList = this.uploadList.slice();
 
             // 添加图片结果
-            uploadList.push(result.content);
+            uploadList.push(...result.content);
 
             // 计算
             let attachmentMarks = uploadList
@@ -211,6 +213,6 @@ export default class ComponentUploadImage extends View
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import "./style";
 </style>

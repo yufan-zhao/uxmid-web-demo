@@ -15,7 +15,7 @@ const applicationSettings: IApplicationSettings =
     mainOriginUrl: window.location.protocol + "//" + window.location.hostname + ":" + window.location.port,
 
     // 项目主接口前缀
-    mainPrefix: "/guobaoSystem",
+    mainPrefix: "/kaiyangSystem",
 
     // 鉴权接口地址
     authOriginUrl: window.location.protocol + "//" + window.location.hostname + ":" + window.location.port,

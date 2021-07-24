@@ -15,7 +15,7 @@
         "baseUrl": ".",
         // "types": ["webpack-env"],
         "paths": {
-            "uxmid-vue-web/*": ["./uxmid-vue-web/*"],
+            "uxmid-iview-web": ["./uxmid-iview-web/src/index.ts"],
             "src/*": ["./src/*"],
             "apis": ["./src/apis/"],
             "apis/*": ["./src/apis/*"],

@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, Component, config } from "uxmid-vue-web";
+import { vueComponent, Component, config } from "uxmid-iview-web";
 
 /**
  * 表示一个页面头部组件。

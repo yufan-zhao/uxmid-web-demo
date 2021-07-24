@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, Component, config, watch } from "uxmid-vue-web";
+import { vueComponent, Component, config, watch } from "uxmid-iview-web";
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";
 import { RouteUtils } from "src/common/utils";

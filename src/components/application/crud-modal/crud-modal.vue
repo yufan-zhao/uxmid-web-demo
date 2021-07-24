@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, Component, config } from "uxmid-vue-web";
+import { vueComponent, Component, config } from "uxmid-iview-web";
 
 /**
  * 配合switch-table的新增-编辑弹层

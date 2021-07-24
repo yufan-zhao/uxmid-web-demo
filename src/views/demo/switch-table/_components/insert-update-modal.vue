@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, mixins, config, watch } from "uxmid-vue-web";
+import { vueComponent, View, mixins, config, watch } from "uxmid-iview-web";
 
 /**
  * 新增、编辑弹层

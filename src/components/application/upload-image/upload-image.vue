@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, config } from "uxmid-vue-web";
+import { vueComponent, View, config } from "uxmid-iview-web";
 import { ExtendUtils } from "src/common/utils";
 import messages from "src/common/utils/message";
 

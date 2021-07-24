@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-iview-web";
 
 import { ApplicationContext } from "src/application";
 import { IApplicationMenu } from "src/models";

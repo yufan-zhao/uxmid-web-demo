@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Type } from "uxmid-core";
-import { vueComponent, config, Component } from "uxmid-vue-web";
+import { vueComponent, config, Component } from "uxmid-iview-web";
 import HttpClient from "src/common/http/http-client";
 import { ApplicationContext } from "src/application";
 import { UploadService } from "src/services";

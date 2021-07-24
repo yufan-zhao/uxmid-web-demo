@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, Component } from "uxmid-vue-web";
+import { vueComponent, Component } from "uxmid-iview-web";
 
 /**
  * 表示一个包含头部和侧边条的布局母版。

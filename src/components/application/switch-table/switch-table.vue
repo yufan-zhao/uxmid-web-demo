@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, config, mixins } from "uxmid-vue-web";
+import { vueComponent, View, config, mixins } from "uxmid-iview-web";
 import { Pagin } from "src/common/mixins";
 import { IPaginFilterModel } from "src/models";
 

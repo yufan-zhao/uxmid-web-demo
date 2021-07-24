@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-iview-web";
 import ManageDetail from "./detail.vue";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";

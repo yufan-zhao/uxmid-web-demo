@@ -1,11 +1,11 @@
 <template>
     <div class="u-nodata">
-        <img :src="src" :alt="label" />
+        <img src="src/assets/application/none-data.png" :alt="label" />
         <p>{{label}}</p>
     </div>
 </template>
 <script lang="ts">
-import { View, vueComponent, config } from "uxmid-vue-web";
+import { View, vueComponent, config } from "uxmid-iview-web";
 
 @vueComponent
 export default class Nodata extends View
@@ -15,7 +15,7 @@ export default class Nodata extends View
     /**
      * 图片
      */
-    protected src = require("src/assets/application/none-data.png");
+    // protected src = require("src/assets/application/none-data.png");
 }
 </script>
 <style lang="less">

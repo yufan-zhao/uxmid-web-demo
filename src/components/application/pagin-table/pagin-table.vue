@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, watch, config, mixins } from "uxmid-vue-web";
+import { vueComponent, watch, config, mixins } from "uxmid-iview-web";
 import { Pagin } from "src/common/mixins";
 import { IPaginFilterModel } from "src/models";
 

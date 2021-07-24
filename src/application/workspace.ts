@@ -1,5 +1,5 @@
 import { IWorkbench } from "uxmid-core";
-import components, { View } from "uxmid-vue-web";
+import components, { View } from "uxmid-iview-web";
 import Vue, { CreateElement } from "vue";
 import Router from "vue-router";
 import dayjs from "dayjs";
@@ -107,6 +107,7 @@ export default class Workspace extends View
     public static initializeComponent(context: ApplicationContext): void
     {
         // Vue.use(ViewUI);
+        console.log(components);
         Vue.use(components);
         Vue.use(globalComponents);
 

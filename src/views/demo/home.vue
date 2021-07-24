@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-iview-web";
 
 @vueComponent
 export default class HomeView extends View

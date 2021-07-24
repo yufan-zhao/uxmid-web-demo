@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, watch, config } from "uxmid-vue-web";
+import { vueComponent, View, watch, config } from "uxmid-iview-web";
 
 @vueComponent
 export default class InfoView extends View

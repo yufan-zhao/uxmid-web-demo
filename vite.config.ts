@@ -12,7 +12,7 @@ export default defineConfig({
         {
             "public": path.resolve(__dirname, "public"),
             "src": path.resolve(__dirname, "src"),
-            "uxmid-vue-web": path.resolve(__dirname, "uxmid-vue-web")
+            "uxmid-iview-web": path.resolve(__dirname, "uxmid-iview-web/src")
         }
     },
     css:

@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, config } from "uxmid-vue-web";
+import { vueComponent, View, config } from "uxmid-iview-web";
 @vueComponent
 export default class PageContent extends View
 {

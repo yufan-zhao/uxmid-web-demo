@@ -121,7 +121,7 @@
 
 <script lang="ts">
 import { Application } from "uxmid-core";
-import { vueComponent, View } from "uxmid-vue-web";
+import { vueComponent, View } from "uxmid-iview-web";
 import { AuthService } from "src/services";
 import { service } from "src/common/decorator";
 import { StringUtils, Patterns, Messages } from "src/common/utils";

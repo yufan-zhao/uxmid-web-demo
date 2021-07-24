@@ -1,4 +1,4 @@
-import { vueComponent, Component } from "uxmid-vue-web";
+import { vueComponent, Component } from "uxmid-iview-web";
 import { IHttpResponse, IPaginFilterModel } from "src/models";
 
 /**

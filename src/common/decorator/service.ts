@@ -22,6 +22,6 @@ export function service(name: string)
             throw new Error(`不存在${name}服务，再见！`);
         }
 
-        target[key] = target.serviceProvier.resolve(service);
+        target[key] = target.serviceProvider.resolve(service);
     };
 }

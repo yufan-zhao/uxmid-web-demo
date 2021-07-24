@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { vueComponent, View, watch } from "uxmid-vue-web";
+import { vueComponent, View, watch } from "uxmid-iview-web";
 import { IHttpResponse, IPaginFilterModel } from "src/models";
 import { TestPaginTableService } from "src/services";
 import { service } from "src/common/decorator";

@@ -125,7 +125,7 @@ export default class ComponentUploadImage extends View
      * @returns void
      */
     protected onFormatError(file: any, fileList: Array<any>): void {
-        this.$message.error(messages["work.report.file.format.error"]);
+        this.$Message.error(messages["work.report.file.format.error"]);
     }
 
     /**
@@ -136,7 +136,7 @@ export default class ComponentUploadImage extends View
      * @returns void
      */
     protected onExceededSize(file: any, fileList: Array<any>): void {
-        this.$message.error(messages["work.report.file.exceeded.size"]);
+        this.$Message.error(messages["work.report.file.exceeded.size"]);
     }
 
     /**
@@ -148,7 +148,7 @@ export default class ComponentUploadImage extends View
      * @returns void
      */
     protected onUploadError(error: any, file: any, fileList: Array<any>): void {
-        this.$message.error(messages["file.upload.failed"]);
+        this.$Message.error(messages["file.upload.failed"]);
     }
 
     /**

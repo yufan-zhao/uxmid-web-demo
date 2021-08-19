@@ -1,749 +1,330 @@
 <template>
-    <div class="v-login" @keyup.enter="onSubmit">
-        <div class="login-logo">
-            <h2 class="name">{{applicationContext.settings.fullName}}</h2>
-        </div>
-        <div class="login-box">
-            <!-- 登录视图 BEGIN -->
-            <div class="login-content-box" v-show="showFindPwd === false">
-                <h3>请登录</h3>
-                <!-- 表单 BEGIN -->
-                <i-form ref="loginForm" :model="model" :rules="rules" @submit.prevent>
-                    <!-- 表单输入区 BEGIN -->
-                    <div class="form-main">
-                        <!-- 账号 BEGIN -->
-                        <i-form-item prop="username">
-                            <label>账号</label>
-                            <i-input type="text" placeholder="请输入用户账号" v-model="model.username"></i-input>
-                        </i-form-item>
-                        <!-- 账号 END -->
-
-                        <!-- 密码 BEGIN -->
-                        <i-form-item prop="password">
-                            <label>密码</label>
-                            <i-input type="password" placeholder="请输入密码" v-model="model.password"></i-input>
-                            <div class="error-tip-border-left" v-show="false"></div>
-                        </i-form-item>
-                        <!-- 密码 END -->
-
-                        <!-- 验证码 BEGIN -->
-                        <i-form-item prop="verifyCode" v-if="showVerifyCode" class="error-tip-bottom">
-                            <label>验证码</label>
-                            <i-input type="text" placeholder="请输入验证码" v-model="model.verifyCode"></i-input>
-                            <div class="verify-code-box" @click="getVerifyImg">
-                                <img :src="verifyImg" alt="验证码">
-                            </div>
-                            <div class="error-tip-border-left" v-show="false"></div>
-                        </i-form-item>
-                        <!-- 验证码 END -->
-                    </div>
-                    <!-- 表单输入区 END -->
-
-                    <!-- 忘记密码 BEGIN -->
-                    <i-form-item>
-                        <div class="forget-pwd" @click="forgetPwd(true)">忘记密码？</div>
-                    </i-form-item>
-                    <!-- 忘记密码 END -->
-
-                    <!-- 登录 BEGIN -->
-                    <i-form-item>
-                        <i-button class="submit" type="primary" :loading="isHandling" @click="onSubmit">
-                            <template>登录</template>
-                        </i-button>
-                    </i-form-item>
-                    <!-- 登录 END -->
-                </i-form>
-                <!-- 表单 END -->
-            </div>
-            <!-- 登录视图 END -->
-
-            <!-- 找回密码 BEGIN -->
-            <div class="login-content-box find" v-show="showFindPwd === true">
-                <h3>找回密码</h3>
-                <!-- 表单 BEGIN -->
-                <i-form ref="findForm" :model="findModel" :rules="findRules" @submit.prevent>
-                    <div class="form-main">
-                        <!-- 账号 BEGIN -->
-                        <i-form-item prop="username">
-                            <label>账号</label>
-                            <i-input type="text" placeholder="请输入用户账号" v-model="findModel.username"></i-input>
-                        </i-form-item>
-                        <!-- 账号 END -->
-
-                        <!-- 新密码 BEGIN -->
-                        <i-form-item prop="newPwd">
-                            <label>新密码</label>
-                            <i-input type="password" placeholder="请输入密码" v-model="findModel.newPwd"></i-input>
-                        </i-form-item>
-                        <!-- 新密码 END -->
-
-                        <!-- 再次确认密码 BEGIN -->
-                        <i-form-item prop="confirmPassword">
-                            <label>再次确认密码</label>
-                            <i-input type="password" placeholder="请输入密码" v-model="findModel.confirmPassword"></i-input>
-                        </i-form-item>
-                        <!-- 再次确认密码 END -->
-
-                        <!-- 手机号 BEGIN -->
-                        <i-form-item prop="mobile">
-                            <label>手机号</label>
-                            <i-input type="text" placeholder="请输入手机号" v-model="findModel.mobile"></i-input>
-                        </i-form-item>
-                        <!-- 手机号 END -->
-
-                        <!-- 验证码 BEGIN -->
-                        <i-form-item prop="code" class="error-tip-bottom">
-                            <label>验证码</label>
-                            <i-input type="password" placeholder="请输入验证码" v-model="findModel.code"></i-input>
-                            <div :class="`send-code ${sendCodeCoolingTimer && 'disable'}`" @click="sendCode">{{sendCodeTips}}</div>
-                        </i-form-item>
-                        <!-- 验证码 END -->
-                    </div>
-
-                    <i-form-item>
-                        <div class="to-login">已有账号，<span @click="forgetPwd(false)">去登录</span></div>
-                    </i-form-item>
-
-                    <!-- 登录 BEGIN -->
-                    <i-form-item>
-                        <i-button class="submit" type="primary" :loading="isHandling" @click="onSubmit">
-                            <template>登录</template>
-                        </i-button>
-                    </i-form-item>
-                    <!-- 登录 END -->
-                </i-form>
-                <!-- 表单 END -->
-            </div>
-            <!-- 找回密码 END -->
+    <div class="v-login">
+        <div class="bg"></div>
+        <div class="form-wrap" ref="formWrap">
+            <u-login-form class="login-form" scope="loginPage" remember retrieve ref="loginForm" @sendCode="onSendCode" @submit="onSubmit">
+                <!-- 后台验证码 -->
+                <div slot="verify-code" class="verify-code">
+                    <img title="刷新验证码" :src="verifyCode" alt="验证码" v-if="verifyCode" @click="getVerifyCode">
+                </div>
+                <!-- 短线验证码倒计时文本自定义 -->
+                <span slot="countdown" slot-scope="props">{{props.countdown}}s</span>
+                <!-- 找回密码提交按钮文本自定义 -->
+                <span slot="retrieve-submit-btn">确定并登录</span>
+            </u-login-form>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Application } from "uxmid-core";
-import { vueComponent, View } from "uxmid-iview-web";
-import { AuthService } from "src/services";
+import { Vue, Component } from "vue-property-decorator";
+import { uLoginForm } from "src/components/application";
+import { IMode as ILoginMode, ILoginForm, IRetrieveForm } from "src/components/application/form/login/i-login";
 import { service } from "src/common/decorator";
-import { StringUtils, Patterns, Messages } from "src/common/utils";
-import { ApplicationContext } from "../../application";
 
-@vueComponent
-export default class Login extends View
+@Component({
+    components:
+    {
+        "u-login-form": uLoginForm
+    }
+})
+export default class Login extends Vue
 {
-    /**
-     * 请求服务。
-     * @member
-     * @private
-     * @returns {AuthService}
-     */
     @service("AuthService")
-    private authService: AuthService;
+    protected authService: IServices.AuthService;
 
     /**
-     * 获取当前应用的上下文实例。
-     * @protected
-     * @property
-     * @returns ApplicationContext
+     * 表单组件Ref
      */
-    protected get applicationContext(): ApplicationContext
+    protected get loginFormRef(): uLoginForm
     {
-        return Application.context as ApplicationContext;
+        return this.$refs.loginForm as uLoginForm;
     }
 
     /**
-     * 获取或设置视图使用的模型实例。
-     * @member
-     * @protected
-     * @returns {ILoginModel}
+     * 背景动画交互事件代理元素
      */
-    protected model: any =
-    {
-        username: "",
-        password: "",
-        auth_type: "", // vc
-        verifyCode: "",
-        isVerifyCode: false,
-        vc_uuid: undefined // 验证码随机数
-    };
+    protected dotlineEventAgent = null;
 
     /**
-     * 登录前表单验证。
-     * @member
-     * @protected
-     * @returns {any}
+     * 验证码
      */
-    protected rules: any =
-    {
-        username:
-        [
-            {
-                required: true,
-                message: "请输入用户账号"
-            }
-        ],
-        password:
-        [
-            {
-                required: true,
-                message: "请输入密码",
-                trigger: "blur"
-            }
-        ],
-        verifyCode:
-        [
-            {
-                required: false,
-                message: "请输入验证码",
-                trigger: "blur"
-            }
-        ]
-    };
+    protected verifyCode: string = "";
 
     /**
-     * 获取或设置视图使用的模型实例。
-     * @member
-     * @protected
-     * @returns {IFindPsdModel}
+     * 获取验证码
      */
-    protected findModel: any =
+    protected async getVerifyCode(): Promise<void>
     {
-        username: "",
-        mobile: "",
-        code: "",
-        newPwd: "",
-        confirmPassword: ""
-    };
+        this.verifyCode = await this.authService.getVerifyImg();
+    }
 
     /**
-     * 设置找回密码必填验证
-     * @member
-     * @protected
-     * @returns {any}
+     * 监听表单提交事件
      */
-    protected findRules: any =
+    protected onSubmit(params: { type: ILoginMode; payload: ILoginForm | IRetrieveForm }): void
     {
+        const { type, payload } = params;
         
-        username:
-        [
-            {
-                required: true,
-                message: "请输入用户账号。",
-                trigger: "blur"
-            }
-        ],
-        mobile:
-        [
-            {
-                required: true,
-                trigger: "blur",
-                pattern: Patterns["mobile"],
-                message: StringUtils.formatString(Messages["field.invalid"], ["手机号"]),
-                transform: (value: string) =>
-                {
-                    if(value)
-                    {
-                        return value.toString().trim();
-                    }
-
-                    return value;
-                }
-            },
-            {
-                max: 11,
-                message: StringUtils.formatString(Messages["field.string.max"], [11])
-            }
-        ],
-        code:
-        [
-            {
-                required: true,
-                message: "请输入手机号验证码",
-                trigger: "blur"
-            }
-        ],
-        newPwd:
-        [
-            {
-                required: true,
-                trigger: "blur",
-                message: StringUtils.formatString(Messages["field.input.required"], ["新密码"])
-            },
-            {
-                min: 6,
-                max: 16,
-                message: StringUtils.formatString(Messages["field.string.range"], [6, 16])
-            }
-        ],
-        
-        confirmPassword:
-        [
-            {
-                required: true,
-                trigger: "blur",
-                message: StringUtils.formatString(Messages["field.input.required"], ["确认新密码"])
-            },
-            {
-                min: 6,
-                max: 16,
-                message: StringUtils.formatString(Messages["field.string.range"], [6, 16])
-            }
-        ]
-    };
+        if (type === "login")
+        {
+            this.login(payload as ILoginForm);
+        }
+        else if (type === "retrieve")
+        {
+            // const form = payload as IRetrieveForm;
+        }
+    }
 
     /**
-     * 发送验证码提示
-     * @member
-     * @protected
-     * @returns {string}
+     * 监听发送短线验证码事件
      */
-    protected sendCodeTips: string = "获取验证码";
-
-    /**
-     * 防止重复点击
-     * @member
-     * @protected
-     * @returns {boolean}
-     */
-    protected isHandling: boolean = false;
-
-    /**
-     * 验证码路径
-     * @member
-     * @protected
-     * @returns {blob}
-     */
-    protected verifyImg: string = null;
-
-    /**
-     * 是否需要输入验证码
-     * @member
-     * @protected
-     * @returns {boolean}
-     */
-    protected showVerifyCode: boolean = false;
-
-    /**
-     * 记录错误次数
-     * @member
-     * @protected
-     * @returns {number}
-     */
-    protected errorCount: number = 0;
-
-    /**
-     * 找回密码视图
-     * @member
-     * @protected
-     * @returns {boolean}
-     */
-    protected showFindPwd: boolean = false;
-
-    /**
-     * 手机验证码功能冷却时间
-     * @member
-     * @protected
-     * @returns {number}
-     */
-    protected sendCodeCoolingTime: number = 20;
-
-    /**
-     * 手机验证码功能冷却时间
-     * @member
-     * @protected
-     * @returns {number}
-     */
-    protected sendCodeCoolingTimer: any = null;
-
-    /**
-     * 找回密码获取手机验证码
-     * @member
-     * @protected
-     * @returns {Promise<void>}
-     */
-    protected async getVerifyImg(): Promise<void>
+    protected onSendCode(params: { mobile: string }): void
     {
-        this.model.vc_uuid = new Date().getTime();
+        const { mobile } = params;
+        // TODO 调用发送短线验证码接口
+        
+    }
+
+    /**
+     * 表单提交状态重置
+     */
+    protected resetSubmit(): void
+    {
+        this.loginFormRef.resetSubmit();
+    }
+
+    /**
+     * 登录
+     */
+    protected async login(form: ILoginForm): Promise<void>
+    {
         try
         {
-            const { content } = await this.authService.getVerifyImg(this.model.vc_uuid);
-
-            this.verifyImg = window.URL.createObjectURL(content);
+            await this.authService.login(form);
+            // this.$router.push({ name: this.$applicationContext.permissionRoutes[0].name });
         }
-        catch(error)
+        catch (error)
         {
-            error.message && this.$message.error(error.message);
-        }
-    }
-
-    /**
-     * 找回密码&去登录
-     * @member
-     * @protected
-     * @returns {void}
-     */
-    protected forgetPwd(isForget): void
-    {
-        this.showFindPwd = isForget;
-        const $form = this.$refs[isForget ? "findForm" : "loginForm"] as any;
-        // 重置用户输入
-        $form.resetFields();
-
-        if (isForget)
-        {
-            // 手机验证码功能冷却
-            const isCooling: string = localStorage.getItem("__sendCodeCooling__");
-            if (isCooling)
-            {
-                // 上一次记录时间
-                const lastTime: number = Number.parseInt(isCooling);
-                // 当前时间
-                const nowTime: number = new Date().getTime();
-                // 计算出的间隔时间
-                const gapSecond: number = (nowTime - lastTime) / 1000;
-                // 期望冷却时间
-                const sendCodeCoolingTime = this.sendCodeCoolingTime;
-
-                if (gapSecond < 20)
-                {
-                    // 剩余冷却时间
-                    const remainTime: number = Number.parseInt((sendCodeCoolingTime - gapSecond).toString());
-                    this.sendCodeCoolingTime = remainTime;
-                    this.sendCodeCooling();
-                }
-            }
+            this.resetSubmit();
+            this.getVerifyCode();
         }
     }
 
     /**
-     * 获取手机验证码
-     * @member
-     * @protected
-     * @returns {Promise<void>}
+     * 找回密码
+     * @param form 表单
      */
-    protected async sendCode(): Promise<void>
+    protected retrieve(form: IRetrieveForm)
     {
-        // 过滤规则
-        if (this.sendCodeTips !== "获取验证码")
-        {
-            return;
-        }
-        else if (!this.findModel.username)
-        {
-            this.$message.warning("请先输入账号");
-            return;
-        } else if (!this.findModel.mobile)
-        {
-            this.$message.warning("请先输入手机号");
-            return;
-        }
-
-        // 发送之前，将当前时间戳记录
-        const nowTime = new Date().getTime().toString();
-        localStorage.setItem("__sendCodeCooling__", nowTime);
-
-        try
-        {
-            // 发送短信验证码
-            const res = await this.authService.findPwdMsgCode(this.findModel);
-            this.$message.success("发送成功");
-            this.sendCodeCooling();
-        }
-        catch({ msg })
-        {
-            this.$message.error(msg);
-        }
+        // TODO 调用找回密码接口
+        // 密码找回成功后，直接调用登录接口
     }
 
     /**
-     * 手机验证码功能冷却
-     * @member
-     * @protected
-     * @returns {void}
+     * @mounted
      */
-    protected sendCodeCooling(): void
+    private async mounted(): Promise<void>
     {
-        this.sendCodeTips = `${this.sendCodeCoolingTime--}s`;
+        this.getVerifyCode();
+    
+        this.dotlineEventAgent = this.$refs.formWrap;
 
-        // 冷却倒数
-        this.sendCodeCoolingTimer = setInterval(() =>
-        {
-            if (this.sendCodeCoolingTime === 0)
-            {
-                clearInterval(this.sendCodeCoolingTimer);
-                this.sendCodeCoolingTimer = null;
-                this.sendCodeTips = "获取验证码";
-                this.sendCodeCoolingTime = 20;
-                localStorage.removeItem("__sendCodeCooling__");
-                return;
-            }
-            this.sendCodeTips = `${this.sendCodeCoolingTime--}s`;
-        }, 1000);
-    }
-
-    /**
-     * 当提交登录表单时调用。
-     * @protected
-     * @param  {MouseEvent} e 鼠标事件参数。
-     * @returns {void}
-     */
-    protected onSubmit(e: MouseEvent): void
-    {
-        const $form = this.showFindPwd ? this.$refs.findForm as any : this.$refs.loginForm as any;
-        $form.validate(async (isValid: boolean) =>
-        {
-            if(isValid)
-            {
-                if(this.isHandling)
-                {
-                    return;
-                }
-                this.isHandling = true;
-                try
-                {
-                    // if (this.showFindPwd)
-                    // {
-                    //     // 找回密码后再调用登录接口
-                    //     const { content } = await this.service.findPassword(this.findModel);
-                    //     this.model.username = this.findModel.username;
-                    //     this.model.password = this.findModel.newPwd;
-                    // }
-                    // 调用登录接口
-                    const loginRes = await this.authService.login(this.model);
-                }
-                catch({ msg })
-                {
-                    // 记录错误次数，大于等于5次 需要输入验证码
-                    if (this.errorCount >= 5)
-                    {
-                        this.showVerifyCode = true;
-                        // 参数携带验证码
-                        this.model.isVerifyCode = true;
-                        // 开启验证码格式验证
-                        this.rules.verifyCode[0].required = true;
-                        // 获取验证码
-                        this.getVerifyImg();
-                    }
-                    else
-                    {
-                        this.errorCount++;
-                    }
-                    
-                    this.$message.error(msg);
-                }
-                finally
-                {
-                    this.isHandling = false;
-                }
-            }
-        });
+        // if (this.$applicationContext.credential)
+        // {
+        //     this.$router.push({ name: this.$applicationContext.permissionRoutes[0].name });
+        // }
     }
 }
 </script>
 
 <style lang="less" scoped>
-@charset "UTF-8";
-
 .v-login
 {
+    position: relative;
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 
-    .login-logo
+    .bg
     {
-        flex: 0 0 55%;
+        flex: 1 1 55%;
         height: 100%;
-        padding: 11% 0 0 9%;
-        box-sizing: border-box;
-        background: url("src/assets/application/login.png") no-repeat center center / cover;
-
-        .name
-        {
-            height: 50px;
-            line-height: 50px;
-            font-size: 48px;
-            font-weight: bold;
-            color:rgba(255,255,255,1);
-        }
+        .bg-image("src/views/login/img_bg", "jpg");
+        background: no-repeat top right / cover;
     }
-
-    .login-box
+    
+    .form-wrap
     {
-        padding-top: 10%;
-        box-sizing: border-box;
-        flex: 0 0 45%;
+        position: relative;
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        flex-direction: column;
+        width: 45%;
+        height: 100%;
 
-        .login-content-box
+        @{deep}.login-form
         {
-            padding: 0 20% 0 15%;
-            box-sizing: border-box;
-            width: 100%;
+            max-width: 560px;
+            width: 65%;
 
-            h3
+            .title
             {
-                margin-bottom: 73px;
+                margin-bottom: 6.66%;
+                line-height: 40px;
                 font-size: 40px;
                 font-weight: 400;
                 color: #182334;
             }
 
-            form
+            .submit
             {
-
-                .form-main
+                .ivu-btn
                 {
-                    margin-bottom: 20px;
+                    width: 184px;
+                    height: 52px;
+                    font-size: 18px;
+                }
+            }
+
+            .form-main
+            {
+                &.login
+                {
+                    transform: translateY(-12%);
+
+                    .switch-mode
+                    {
+                        margin: 30px 0 40px 0;
+                        padding-left: 20px;
+                        box-sizing: border-box;
+                        font-size: 16px;
+
+                        span
+                        {
+                            font-size: 16px;
+                            color: #5D6673;
+                        }
+                    }
+                }
+
+                &.retrieve
+                {
+                    transform: translateY(-5%);
+
+                    .switch-mode
+                    {
+                        margin: 30px 0 40px 0;
+                        padding-left: 20px;
+                        box-sizing: border-box;
+                        font-size: 16px;
+                        
+                        span
+                        {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .form
+                {
+                    background: #fff;
                     box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.06);
 
-                    @{deep}.ivu-form-item
+                    .form-item
                     {
-                        position: relative;
                         margin-bottom: 0;
-                        height: 86px;
-                        border: 1px solid rgba(242,242,246,1);
-                        border-bottom: none;
-                        background-color: #fff;
+                        padding: 8px 5.8%;
+                        box-sizing: border-box;
+                        border-bottom: 1px solid #F2F2F6;
+
+                        &:last-child
+                        {
+                            border-bottom: none;
+                        }
+
+                        &.code
+                        {
+                            position: relative;
+                            
+                            .verify-code-wrap
+                            {
+                                position: absolute;
+                                right: 0;
+
+                                .verify-code
+                                {
+                                    overflow: hidden;
+                                    position: relative;
+                                    width: 100px;
+                                    height: 36px;
+                                    cursor: pointer;
+
+                                    img
+                                    {
+                                        position: absolute;
+                                        width: 100%;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                    }
+                                }
+                            }
+                            
+                            .verify-code-btn,
+                            .verify-code-countdown
+                            {
+                                position: absolute;
+                                right: 0;
+                            }
+                        }
+
+                        .ivu-form-item-label
+                        {
+                            font-size: 16px;
+                            color: #A6ABB5;
+                        }
 
                         .ivu-form-item-content
                         {
                             position: relative;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: flex-start;
-                            height: 100%;
-
-                            label
-                            {
-                                padding: 0 20px 0 32px;
-                                box-sizing: border-box;
-                                font-size: 14px;
-                                line-height: 22px;
-                                color: rgba(184,184,184,1);
-                            }
-
-                            .ivu-input-wrapper
-                            {
-                                display: block;
-                                padding: 0 20px 0 32px;
-                                box-sizing: border-box;
-
-                                input
-                                {
-                                    padding: 0;
-                                    border: none;
-                                    font-size: 18px;
-                                    color: #222;
-
-                                    &:focus
-                                    {
-                                        box-shadow: none;
-                                    }
-                                }
-                            }
 
                             .ivu-form-item-error-tip
                             {
                                 position: absolute;
-                                top: unset;
-                                left: unset;
-                                bottom: 21px;
-                                right: 20px;
+                                top: 40px;
+                                right: 0;
+                                text-align: right;
+                                pointer-events: none;
+                            }
+
+                            .ivu-input
+                            {
                                 padding: 0;
-                                height: 22px;
-                                line-height: 22px;
-                                font-size: 14px;
-                                color: #EC0000;
-                            }
+                                border: none;
+                                font-size: 18px;
+                                color: #1A1A1A;
 
-                            .error-tip-border-left
-                            {
-                                position: absolute;
-                                left: 0;
-                                top: 0;
-                                width: 4px;
-                                height: 100%;
-                                background-color: #EC0000;
-                            }
-                        }
+                                &::placeholder
+                                {
+                                    font-size: 16px;
+                                }
 
-                        .send-code
-                        {
-                            position: absolute;
-                            right: 20px;
-                            font-size: 18px;
-                            cursor: pointer;
-                            color: #2D52F2;
-
-                            &.disable
-                            {
-                                cursor: not-allowed;
-                                color: #d2d5dc;
+                                &:focus
+                                {
+                                    box-shadow: none;
+                                }
                             }
                         }
 
-                        .verify-code-box
+                        &:last-child
                         {
-                            position: absolute;
-                            right: 20px;
-                            width: 95px;
-                            height: 40px;
-                            cursor: pointer;
-
-                            img
-                            {
-                                position: absolute;
-                                top: 50%;
-                                transform: translateY(-50%);
-                                width: 100%;
-                            }
-                        }
-
-                        &::before
-                        {
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            content: "";
-                            width: 4px;
-                            height: 100%;
-                            transform: scaleY(0);
-                            transition: all .5s cubic-bezier(0.25, 0.8, 0.5, 1);
-                            background-color: #2D52F2;
-                        }
-
-                        &:focus-within:before 
-                        {
-                            transform: scaleY(1);
-                        }
-                        
-                        &:nth-of-type(1)
-                        {
-                            border-top-left-radius: 4px;
-                            border-top-right-radius: 4px;
-                        }
-                        
-                        &:nth-last-of-type(1)
-                        {
-                            border-bottom-left-radius: 4px;
-                            border-bottom-right-radius: 4px;
-                            border-bottom: 1px solid rgba(242,242,246,1);
-                        }
-
-                        &.error-tip-bottom
-                        {
-
                             .ivu-form-item-content
                             {
-
                                 .ivu-form-item-error-tip
                                 {
-                                    position: absolute;
                                     top: unset;
-                                    left: 32px;
+                                    right: unset;
                                     bottom: -30px;
                                 }
                             }
@@ -751,50 +332,42 @@ export default class Login extends View
                     }
                 }
 
-                @{deep}.ivu-form-item
+                .focus
                 {
                     position: relative;
 
-                    .forget-pwd
+                    &:before 
                     {
+                        content: "";
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        font-size: 16px;
-                        cursor: pointer;
-                        color: #5D6673;
-                    }
-
-                    .to-login
-                    {
-                        position: absolute;
-                        top: 0;
                         left: 0;
-                        font-size: 16px;
-                        color: #5D6673;
-
-                        span
-                        {
-                            cursor: pointer;
-                            color: #2D52F2;
-                        }
+                        top: 0;
+                        display: block;
+                        width: 4px;
+                        height: 100%;
+                        border-radius: 1px;
+                        transform: scaleY(0) translateZ(0);
+                        transition: transform .4s cubic-bezier(0.25, 0.8, 0.5, 1);
+                        background-color: #2d52f2;
                     }
 
-                    .submit
+                    &:focus-within:before
                     {
-                        margin-top: 25px;
-                        padding: 0;
-                        width: 184px;
-                        height: 52px;
-                        font-size: 18px;
-                        border: none;
-                        border-radius: 4px;
-                        background: rgba(45,82,242,1);
+                        transform: scaleY(1) translateZ(0);
                     }
                 }
             }
         }
     }
-}
 
+    .dotline
+    {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        width: 45%;
+        height: 100%;
+    }
+}
 </style>

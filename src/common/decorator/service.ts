@@ -1,5 +1,6 @@
 import * as services from "src/services";
 import ServiceBase from "src/services/service-base";
+import { ApplicationContext } from "src/application";
 
 /**
  * 服务属性装饰器
@@ -22,6 +23,6 @@ export function service(name: string)
             throw new Error(`不存在${name}服务，再见！`);
         }
 
-        target[key] = target.serviceProvider.resolve(service);
+        target[key] = ApplicationContext.current.serviceFactory.default.resolve<any>(<any>service);
     };
 }

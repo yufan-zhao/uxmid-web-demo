@@ -1,0 +1,29 @@
+/**
+ * 2倍图、3倍图处理
+ */
+.bg-image(@url, @ext)
+{
+    /* 设备像素比为 1 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 1), only screen and (min-device-pixel-ratio: 1)
+    {
+        background-image: url('/@{url}@1x.@{ext}');
+    }
+
+    /* 设备像素比为 1.5 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5)
+    {
+        background-image: url('/@{url}@2x.@{ext}');
+    }
+
+    /* 设备像素比为 2 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
+    {
+        background-image: url('/@{url}@2x.@{ext}');
+    }
+
+    /* 设备像素比为 3 */
+    @media only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min-device-pixel-ratio: 3)
+    {
+        background-image: url('/@{url}@2x.@{ext}');
+    }
+}

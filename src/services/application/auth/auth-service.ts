@@ -48,16 +48,17 @@ export default class AuthService extends ServiceBase
      * @param {number} uuid
      * @returns {Promise<IHttpResponse>}
      */
-    public async getVerifyImg(uuid: number): Promise<IHttpResponse>
+    public async getVerifyImg(): Promise<string>
     {
-        const res = await this.mainApis.getVerifyImg({
+        const { content } = await this.mainApis.getVerifyImg({
             params:
             {
-                uuid: uuid
+                uuid: new Date().getTime() // TODO
             },
             responseType: "blob"
         });
-        return res;
+        const blobUrl = window.URL.createObjectURL(content);
+        return blobUrl;
     }
 
     /**
